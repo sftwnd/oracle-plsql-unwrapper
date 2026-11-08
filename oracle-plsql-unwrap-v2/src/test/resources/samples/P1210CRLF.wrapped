@@ -1,16 +1,171 @@
-UEsDBBQAAAAIACAAIQDj6k4e7gIAAO8GAAANAAAAUDEyMTBDUkxGLnBsYr2US5OiSBhF9xlR/4G9
-C0GQR0zUQkUFBZXC5rWpSDKTh5KAyEP89YPV3dE9U9W7rmKRrM+937moIrAmTFExFSkziAhTVgUi
-uKkIc3lFVRYxXQXLkmAGQPbtAxyAIcJ/6ZGAIDEyBxbiWk+0qbs77GZ+llvnxsN2ek6mqtDF0zyn
-0igyq0nfrTrXE6WXTFyR0rMNq8vKKSflN/44M6WEBYHtyIGjqra8QRBOsTXWNze9Vjtz1o9rHW/i
-NIitk0TZ2x3hVC8vHW+M/GcAxuBKMoJqhnsCUVVQBjcw++cJoPcZQXSG8fB/peltiOZzI1IAzzFT
-DGpdcEU2kJWL8qLtC19Zm5lzPEvTXB4iooJy3EdKqKBVs+s5JYHGtc+wft1AsivLgM7N66LvinoJ
-urUv4Fq7bObjyR76TZdb8wf+e9CoyVGdFjkTvaKCUpLXn8wqA54wEgd23PgeNVKxF+LIp8uFjF0v
-MXeLZDKwyiSIUWQsdsbIy8q6apWe6yWPQ/e8M7bKtazJT16wgA6bsodZpxojtgjUBaRJuj04jSHa
-bWYvyksI7V4+fMxf9+XwfIUHGEzkR8nCEScv9h3ajqq1zXkt3kXaX+X7dRM/PGCxkaBVazdsQBKv
-Stit6I6pPOt7+WadWHMDw5P6gAcP+vnZzAqT0jIOjBbHzx9D/rzmsMD9F510CASOkRTA1o7WbVb0
-G+9WauAftNl6LzZlJnDdf0662TRjxTRdgTe8yapo7kYytDrQkuhtGcD3aRj6Fx12K51mZivZ3sUd
-TI/rrZTOb/3EsEYaj7dw2dkK92EST+CX2AmBmFSfbvb30sMjDgs6bhQxUGdu0Lan/pL5l0RR/Xdm
-u+k0KFx9bU3rHxH8shsMequdrmkGGkpPqN9i/U+l/zbzXzHyLCNh4KDcC+uzdCvVm073hdOLWsSG
-fB/q70ee3ybeZZD3fwP/2Hfw+8DLcb5MZfWtcg25GfWXuuG3sxihuoeQbndW4cTPbzn8C1BLAQIU
-AxQAAAAIACAAIQDj6k4e7gIAAO8GAAANAAAAAAAAAAAAAACAAQAAAABQMTIxMENSTEYucGxiUEsF
-BgAAAAABAAEAOwAAABkDAAAAAA==
+create or replace procedure q_crlf wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+47 81
+C6GIhH5WNPNAYlnQkuXdSikh5D4wg5nnm7+fMr2ywFwWX67Rl6FepXSLQwlp517nx3TAM7h0
+ZSV8ZVDDS8Jcaa5dQ/IJxItDwMAy/tIdJgiZgQj7m0xzcdiIpqw3L+Y=
+
+/
+select 1
+from dual;
+create or replace package p_mixed wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+9
+31 5d
+tI4W60Z89q9RHOoY9GMlVTk75n8wg5m49TOf9b9cFuNy19haLsyldIsJaeNppZmBMsCywotE
+wGY4dtHqJB/2OaYuwnQB
+
+/
+create or replace function f_comment wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+8
+3e 71
+N1/zfu7oO4gfYmEC8dWXhMNCh28wg8eZgcfLCNL+Xlptrv9y1y7X1cznwLK9sptepZmBMsCy
+CaV0i0PAwDL+0oZDCamhiKPVuL6SvlSCpqbaSy8P
+
+/
+create or replace type t_crlf wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+d
+28 5d
+4TdhRSzaSVDHvukG6z6mys8zsJgwg5n0dLhcFvSu0ZehXrh0K6W/m8Ayy8xQj0MJabjDpZmB
+MsCyBkMloMmmpgZLvdg=
+
+/
+create or replace package body p_mixed wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+41 79
+0tVHwJFmU3WrDZYPHAGO6upl41wwg5m49TOf9b9cuJu/9MMW43LX2FouzLh0i0MJaefnm7+f
+Mr2ywFznw6V0K7jAMv7SXqWZgQgtK7iBxy2LQ+H3dKaEwS91
+
+/
+create or replace
+package p_header wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+9
+28 5d
+bTdbom/u96ZDAWZvvjyqlYqh9DYwg5m49TOf9b9cFuNyWi5ZoWIGQ5t0i0MJaeNppZmBMsCy
+wotDwIHHLcmmphmYvdI=
+
+/
+create or replace procedure q_lf wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+40 7d
+VcnXbtk7xpDxImOoVy6Hf0b3ybIwg5nnm7+fMr2ywFwWX3KhXqV0iwlp517nx3TAM7h0ZSV8
+ZVDDS8Jcaa5d8gnEi8DAMv7SHcWlmYEILYvAgcctyaamKNQoVg==
+
+/

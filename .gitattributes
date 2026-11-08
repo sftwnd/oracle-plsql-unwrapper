@@ -1,0 +1,6 @@
+# Test references are compared byte for byte: git keeps their line breaks (CRLF, LF and lone CR) and trailing white
+# space as they are, whatever core.autocrlf is, and does not report them as whitespace errors. Their checksums are in
+# SHA256SUMS next to them (ADR 0016).
+*.wrapped    -text -whitespace linguist-generated
+*.unwrapped  -text -whitespace
+SHA256SUMS   -text

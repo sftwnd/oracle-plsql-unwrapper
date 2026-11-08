@@ -1,9 +1,33 @@
-UEsDBBQAAAAIAAAAIQD+ezcWTgEAAEEDAAAQAAAAUDEwMjBDTEFVU0VTLnNxbI2SXW+CMBSG70n4
-DyfesJlNqnPfVyDdwiLoEJPdkVI6w0TaYEn0368IMZoxNWnanLR9znnfc2jBiGTACyiYyAhlIApO
-WVIWDIgQPRHJNch0xdaSrAQYA4TQLeqr9YJQvQxwZ7pm43fX1zUAfz4ev+oa9h21m7pG6wzfZU5l
-ynPovEWfJZcs6UDoengWWt60+teODnA4D3wF9WwcHCdqrvotyQ7lELokC3UuFxHPkgMtVVQBAb4a
-/mWkmCfbPc7sAoWueZFFJ9hyK1Qc/7SUyNMEDNQf3A3vHx6fni175OC34xgNDLBmMLE/8CiEK6uR
-c1Np8/DOuWkwGWFnHmDwrk8WsVPXXklt1l+guoBdV+reQ63zhNosjQtSbKvzkvFS0gxTroS56a25
-8W979nMrosqzieuc9W14ZnYXBcklsA2jZZUsb9CSgyjjLKXq1S9QSwECFAMUAAAACAAAACEA/ns3
-Fk4BAABBAwAAEAAAAAAAAAAAAAAAgAEAAAAAUDEwMjBDTEFVU0VTLnNxbFBLBQYAAAAAAQABAD4A
-AAB8AQAAAAA=
+create or replace procedure app.p_ts timestamp '2000-01-01:00:00:00' IS
+BEGIN
+  NULL;
+END;
+/
+create function "F_Quoted" TIMESTAMP
+  '2000-01-01:00:00:00' RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END;
+/
+create or replace package pkg_old timestamp old IS
+  X NUMBER;
+END;
+/
+create or replace package body pkg_old /* c */ timestamp '2000-01-01:00:00:00' IS
+END;
+/
+create or replace type obj_old timestamp old oid '0123456789ABCDEF0123456789ABCD02' AS OBJECT (A NUMBER,
+  MEMBER PROCEDURE M);
+/
+create or replace type body obj_old timestamp old IS
+  MEMBER PROCEDURE M IS BEGIN NULL; END;
+END;
+/
+create or replace library lib_ts timestamp '2000-01-01:00:00:00' AS '/tmp/x.so';
+/
+create or replace procedure p_oid OID '0123456789ABCDEF0123456789ABCD04' IS
+BEGIN
+  NULL;
+END;
+/
+grant execute on p_oid to public;

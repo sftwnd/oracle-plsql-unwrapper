@@ -1,8 +1,38 @@
-UEsDBBQAAAAIAAAAIQBxG1cXRAEAAP0CAAAQAAAAUDIzMjYxRVhJU1RTLnNxbI2S32vCMBDH3wv9
-Hw5fuslm6x4de/BHGB1aR1XYw0Cuaeoy2yYkEfS/X2ydzNaNQcjDXb6f+97lqGJoGEglKEt3igHP
-oBQG2J5ro0GueckgXLjOiDyHkesARKvp9NF1SDSxt+86tCZku5IaLsoGAKXsZRUkJstVHFn5bETi
-S+Qp1b+CZSk/UjHJrUmkW9y0LG43Z5MAb6cCV1Df8kSkBwgz8LtAoetDJMxRSdq4JsEcZLO6SD6r
-5/oDFS838AQFM5iiQTC8YNpgIcF7CILgPujbMwiC+ngwXMB89ELGS7gZnlzfwYxU43mN52MyWcUE
-ZrdtC1UH133UU2hTbAKqedf/B3VrzQZznihUTbaNVmxr2PNNIf19TwvvQohasyLJm0rUxVlJB+/7
-Xprnl8LfFq8TZp1/7Z1QoJjMkf5kyfV37E/EF1BLAQIUAxQAAAAIAAAAIQBxG1cXRAEAAP0CAAAQ
-AAAAAAAAAAAAAACAAQAAAABQMjMyNjFFWElTVFMuc3FsUEsFBgAAAAABAAEAPgAAAHIBAAAAAA==
+create procedure if not exists p_ine IS
+BEGIN
+  NULL;
+END;
+/
+create function if not exists app.f_ine RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END;
+/
+create editionable package if not exists pkg_ine IS
+  X NUMBER;
+END;
+/
+create package body If /* c */ Not
+  Exists pkg_ine IS
+END;
+/
+create type if not exists obj_ine sharing = metadata timestamp '2000-01-01:00:00:00' AS OBJECT (A NUMBER, MEMBER PROCEDURE M);
+/
+create type body if not exists obj_ine IS
+  MEMBER PROCEDURE M IS BEGIN NULL; END;
+END;
+/
+create library if not exists lib_ine AS '/tmp/x.so';
+/
+create assembly if not exists asm_ine AS 'c:\x.dll';
+/
+create procedure if not exists "If" IS
+BEGIN
+  NULL;
+END;
+/
+create or replace procedure p_replace IS
+BEGIN
+  NULL;
+END;
+/

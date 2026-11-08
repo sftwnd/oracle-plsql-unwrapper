@@ -1,7 +1,40 @@
-UEsDBBQAAAAIACAAIQD5H5hkEAEAACwCAAANAAAAUDEyMTBDUkxGLnNxbHWRzW7CMBCE75b8DnsD
-ThSOjXpIgtVS0dAagtpTZOxNi5rEqZtI5e1r5weQIBdb1nq/nZ2RBkWFoA0YLDMhEUqjJaraIPwk
-0mQpLDeUAOxg5/Pwyefz8fxuAvcPMBKU7EceJQF7XEbuTxSvVvbNooVHpuQXM5QVzChJjc5B1SKz
-RXk9UMhv8WnvJD/8obLzLOrdwl4Cxj3H/egfPfoaktaFrA66gDSROs+xqICzbcyjrrXZ4iS0K808
-GCZWx9IerQX+BtbBMwu3MHbtfgelZHK7t19pr9XxtJff+PjK1yFbxJzBm9UEjaTWOHBS6KAgSs5G
-faFQaChpo7nwqkVMb9p8kWuT6kCoLtPWqT7RXtI/UEsBAhQDFAAAAAgAIAAhAPkfmGQQAQAALAIA
-AA0AAAAAAAAAAAAAAIABAAAAAFAxMjEwQ1JMRi5zcWxQSwUGAAAAAAEAAQA7AAAAOwEAAAAA
+create or replace procedure q_crlf IS
+  V VARCHAR2(20) := 'a
+b';
+BEGIN
+  NULL;
+END;
+/
+select 1
+from dual;
+create or replace package p_mixed IS
+  X NUMBER;
+  Y NUMBER;
+END;
+/
+create or replace function f_comment RETURN NUMBER IS
+BEGIN
+  RETURN 1; 
+END;
+/
+create or replace type t_crlf AS OBJECT (
+  A NUMBER
+);
+/
+create or replace package body p_mixed AS
+  PROCEDURE Q IS BEGIN NULL; END;
+END;
+/
+create or replace
+package p_header
+IS
+  X NUMBER;
+END;
+/
+create or replace procedure q_lf IS
+  V VARCHAR2(20) := 'a
+b';
+BEGIN
+  NULL;
+END;
+/

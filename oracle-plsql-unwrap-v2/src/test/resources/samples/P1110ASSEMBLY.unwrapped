@@ -1,5 +1,8 @@
-UEsDBBQAAAAIAAAAIQACHxZqjgAAAOsAAAARAAAAUDExMTBBU1NFTUJMWS5zcWx1jssKwjAQRfeB
-/sPQTVbW6LKu+gniVpB0OkggL5IJtH69kVIsiHAXw3DPmcFEmglCgkTRaiTQOZMb7VIH96gr42G4
-gcT+PneTtfLSiGMjcOW+5Ri7dqjEtQSmqW0EbNjyi/07xxnYOMqsXQR5Vkod1KmmV2qN3KSvnfSZ
-tGegmbB83H73OQeIZbQGa/MNUEsBAhQDFAAAAAgAAAAhAAIfFmqOAAAA6wAAABEAAAAAAAAAAAAA
-AIABAAAAAFAxMTEwQVNTRU1CTFkuc3FsUEsFBgAAAAABAAEAPwAAAL0AAAAAAA==
+create or replace assembly asm_plain AS 'c:\x.dll';
+/
+create assembly app."Asm_Quoted"
+  AS 'c:\y.dll';
+/
+create or replace assembly asm_ts timestamp '2000-01-01:00:00:00' AS 'c:\z.dll';
+/
+grant execute on asm_plain to public;
