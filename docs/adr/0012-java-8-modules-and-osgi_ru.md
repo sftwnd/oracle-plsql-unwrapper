@@ -27,8 +27,11 @@
 - Jar модулей остаются в `target/<artifact>-<version>-modules`, для запуска на module path и для `jlink`.
 - Рядом с обычным jar у unwrapper есть исполняемый jar со всеми классами, `target/<artifact>-<version>-all.jar`, для
   `java -jar` на любом JDK. Его собирает `maven-assembly-plugin` по `src/assembly/executable-jar.xml` модуля
-  `oracle-plsql-unwrapper`: манифест новый, поставщики в `META-INF/services` слиты, как и тексты лицензий в
-  `META-INF/LICENSE`.
+  `oracle-plsql-unwrapper`: манифест новый, поставщики в `META-INF/services` слиты, а `META-INF/LICENSE` — тот, что в
+  jar unwrapper, как есть. SPI и форматы под той же лицензией свой текст не кладут. Обработчик `file-aggregator`
+  плагина `maven-assembly-plugin` для лицензии не используется: он пишет в файл время сборки, и исполняемый jar и
+  дистрибутив отличались бы от сборки к сборке. `UnwrapperLaunchIT` проверяет, что текст лицензии у обоих — файл
+  `LICENSE`.
 - `UnwrapperLaunchIT` запускает собранный дистрибутив и исполняемый jar в отдельной JVM каждым из этих способов.
 
 ## Обоснование
