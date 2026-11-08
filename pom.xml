@@ -52,17 +52,23 @@
         <!-- The code level of every module; JDK 9 and later compile it with release, see the profile java9-modules -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.16</jacoco-maven-plugin.version>
         <central-publishing-maven-plugin.version>0.12.0</central-publishing-maven-plugin.version>
         <exec-maven-plugin.version>3.6.4</exec-maven-plugin.version>
-        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
+        <!-- the last one that runs on JDK 8: 6.x carries bnd 7, which needs JDK 17 -->
         <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
+        <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <maven-deploy-plugin.version>3.2.0</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.7.0</maven-enforcer-plugin.version>
         <maven-failsafe-plugin.version>3.6.1</maven-failsafe-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
-        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-install-plugin.version>3.2.0</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
+        <maven-site-plugin.version>3.22.0</maven-site-plugin.version>
         <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.6.1</maven-surefire-plugin.version>
         <sonar-maven-plugin.version>5.8.0.7211</sonar-maven-plugin.version>
@@ -78,6 +84,8 @@
         <native.linux.image>ghcr.io/graalvm/native-image-community:25</native.linux.image>
         <!-- the native executable that the launch tests start: set by the profile native -->
         <native.executable/>
+        <!-- the name of the bundle and of the JPMS module: each module sets its own -->
+        <module.name/>
         <executable.jar.descriptor>${project.basedir}/src/assembly/executable-jar.xml</executable.jar.descriptor>
     </properties>
 
@@ -132,6 +140,32 @@
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+                <!-- The plugins of the lifecycle that the project does not configure: their versions stay the same for any Maven -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -575,11 +609,8 @@
                                 </goals>
                                 <configuration>
                                     <release>9</release>
+                                    <!-- the plugin itself patches the module with the classes of target/classes -->
                                     <multiReleaseOutput>true</multiReleaseOutput>
-                                    <compilerArgs>
-                                        <arg>--patch-module</arg>
-                                        <arg>${module.name}=${project.build.outputDirectory}</arg>
-                                    </compilerArgs>
                                     <compileSourceRoots>
                                         <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
                                     </compileSourceRoots>
