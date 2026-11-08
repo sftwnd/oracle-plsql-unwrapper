@@ -56,7 +56,8 @@
         <central-publishing-maven-plugin.version>0.12.0</central-publishing-maven-plugin.version>
         <exec-maven-plugin.version>3.6.4</exec-maven-plugin.version>
         <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
-        <maven-bundle-plugin.version>6.2.0</maven-bundle-plugin.version>
+        <!-- the last one that runs on JDK 8: 6.x carries bnd 7, which needs JDK 17 -->
+        <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
         <maven-deploy-plugin.version>3.2.0</maven-deploy-plugin.version>
@@ -375,8 +376,6 @@
                         <Bundle-SymbolicName>${module.name}</Bundle-SymbolicName>
                         <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
                         <Multi-Release>true</Multi-Release>
-                        <!-- bnd 7 imports java.* as well, which a framework before OSGi R7 does not resolve on Java 8 -->
-                        <_noimportjava>true</_noimportjava>
                     </instructions>
                 </configuration>
             </plugin>
