@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     The executable jar of an unwrapper. Its manifest is its own: the manifest of a part would make it look like that part,
-    a bundle, a module or a jar with neighbours. The providers of the formats are merged, and so are the licenses, which the
-    SPI and the formats leave out so that the text of each license stays once.
+    a bundle, a module or a jar with neighbours. The providers of the formats are merged. The license text is the one of
+    the jar of the unwrapper, as it is: the SPI and the formats, under the same license, leave theirs out. The handler
+    file-aggregator is not used for it: it writes the time of the build into the file, and the jar would differ with every
+    build.
 -->
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,13 +17,6 @@
     <containerDescriptorHandlers>
         <containerDescriptorHandler>
             <handlerName>metaInf-services</handlerName>
-        </containerDescriptorHandler>
-        <containerDescriptorHandler>
-            <handlerName>file-aggregator</handlerName>
-            <configuration>
-                <filePattern>META-INF/LICENSE</filePattern>
-                <outputPath>META-INF/LICENSE</outputPath>
-            </configuration>
         </containerDescriptorHandler>
     </containerDescriptorHandlers>
     <dependencySets>
