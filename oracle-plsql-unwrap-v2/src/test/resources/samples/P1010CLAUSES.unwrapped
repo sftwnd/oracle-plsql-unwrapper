@@ -1,9 +1,37 @@
-UEsDBBQAAAAIAAAAIQDO+Ej/TgEAAH0DAAAQAAAAUDEwMTBDTEFVU0VTLnNxbI1SXWvCMBR9XqH/
-4b51k82m6r6frGbDoXVUhb2VNI2uszYhpqD/fkkrMtFVISRc7s2555x7qWREMeASJBMZoQyE5JQl
-hWRAhGiKSK1BpSu2VmQlwGkhhO6Qp88LQtVxYDCxLR+/DwLbAghmw+GrbeGgr2/XtuhRh3mRU5Xy
-HOZRzNW3+XSmgynhaQIO8lrtzv3D49Nz1+/18dthjDxdGeLpLAw0jZGPw0Nqu5RXT08QuiQL/S4X
-Ec+SP9xMZAABvnb4lyHFPNnu4dwGUGi45yRfmUY12GordBz/nKB4iVOt0tPuBMb+B+5N4bq7U3QL
-I1w69xmOe7g/CzGMbmpJlOpOM6nMOgbUCSinUm0LVDpr1GZpLIncmjcy8i6R2HaMPsdVK+Fummvu
-/Dum/cYLA25bl6B3tIG1e7+QJFfANowWpl1egYPiIIo4S6mu+gVQSwECFAMUAAAACAAAACEAzvhI
-/04BAAB9AwAAEAAAAAAAAAAAAAAAgAEAAAAAUDEwMTBDTEFVU0VTLnNxbFBLBQYAAAAAAQABAD4A
-AAB8AQAAAAA=
+create or replace procedure app.p_ts timestamp '2000-01-01:00:00:00' IS
+BEGIN
+  NULL;
+END;
+/
+create or replace function f_both
+  timestamp '2000-01-01:00:00:00'
+  oid '0123456789ABCDEF0123456789ABCD01'
+RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END;
+/
+create or replace package pkg_old timestamp old IS
+  X NUMBER;
+END;
+/
+create or replace package body pkg_old /* c */ timestamp '2000-01-01:00:00:00'	IS
+END;
+/
+create or replace type obj_old timestamp old oid '0123456789ABCDEF0123456789ABCD02'
+  AS OBJECT (A NUMBER, MEMBER PROCEDURE M);
+/
+create or replace type body obj_old timestamp old IS
+  MEMBER PROCEDURE M IS BEGIN NULL; END;
+END;
+/
+create or replace library lib_oid oid '0123456789ABCDEF0123456789ABCD03' AS '/tmp/x.so';
+/
+create or replace procedure p_oid
+oid '0123456789ABCDEF0123456789ABCD04'
+IS
+BEGIN
+  NULL;
+END;
+/
+grant execute on p_oid to public;

@@ -1,7 +1,56 @@
-UEsDBBQAAAAIAAAAIQDdDqUoCgEAAFEDAAAQAAAAUDEwMjBDT01NRU5ULnNxbJWSX2uDMBTFnyf4
-He5zofQD+NZOhqAW9gf2FpJ4ldCYSBph+/a7kZF2Y40dCQZO8HfOuUQ65B7BOnA4aS4RJmcldrND
-kCPTyiCTdhzReKhe8mxfPlVtngG0b3Vd5FnZPsKhYXXVluxwbJqyfS1gt9ns8oy2TNO/wYvLLTp9
-w7oXKbSVp7XEBSQjcnniw0JTpiMMdj+AAO/Eavblc0wIaeB1QJKUYbz36BKVibPdBnVwnGzxA+Uc
-oOY3wluYZqGVLFadZ6M8E9hblxp2dL6HdqkBEHERCBCRAgdlgmJmrUlC0128Hv4qecVPd/Sf0xLI
-cwH8DHRouu/JaRTo1mYZ/vrHDDU/335Vi9UXUEsBAhQDFAAAAAgAAAAhAN0OpSgKAQAAUQMAABAA
-AAAAAAAAAAAAAIABAAAAAFAxMDIwQ09NTUVOVC5zcWxQSwUGAAAAAAEAAQA+AAAAOAEAAAAA
+create or replace procedure cm_line_comment IS
+BEGIN
+  NULL;
+END CM_LINE_COMMENT; /**/
+/
+create or replace procedure cm_comment_line IS
+BEGIN
+  NULL;
+END;
+
+
+/**/
+/
+create or replace procedure cm_block_comment IS
+BEGIN
+  NULL;
+END;  /**/
+/
+create or replace package cm_indented_comment IS
+  X NUMBER;
+END;
+   /**/
+/
+create or replace procedure cm_plain_after IS
+BEGIN
+  NULL;
+END;
+/
+--
+  grant execute on cm_plain_after to public;
+create or replace procedure cm_unit_before IS
+BEGIN
+  NULL;
+END;
+/
+--
+  create or replace procedure cm_unit_after IS
+  BEGIN
+    NULL;
+  END;
+/
+begin
+  null;
+end;
+/
+--
+	grant execute on cm_unit_after to public;
+create or replace type cm_tab as table of number;
+/
+--
+  grant execute on cm_tab to public;
+create or replace procedure cm_last IS
+BEGIN
+  NULL;
+END;
+/

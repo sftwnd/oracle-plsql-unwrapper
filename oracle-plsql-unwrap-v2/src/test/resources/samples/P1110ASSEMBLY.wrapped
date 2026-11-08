@@ -1,9 +1,73 @@
-UEsDBBQAAAAIAAAAIQCLJWZyWgEAAPICAAARAAAAUDExMTBBU1NFTUJMWS5wbGK9kktPwkAQx+/7
-KTZcOBDtAwpEw6HyCIE0UhBLuZh9WVq7Zdlu6ePTW+AAJnpTJ/9MJnP7zW+IZEgxuJdQMhEjwiBK
-U8ZxXNYDf6tXYQJziYRgFAKknwsYAGFCf6lZPWCa0LJAp9d20nI0R260Lbx1xIh22Kj5ZueRPOhT
-vbRaT4446rkhPE0bejs0mS6NbocOlZB87M9i22kdpQMKh3MRLask+RgAoAFygbySCXHfsGs8N9sr
-Rhv/ANiDFgW4vVq7nd52WGqF3CZRxCvvue86qXS+ApqJ/XrU8vkEb+LDOKtsf4bwTp+bPPOXAQc0
-r7qttBqXCHG3QNtDPrgF/cmmSqEKOUsV4gI2zRr0TjfqPOj6Jc2/v4TxDi0DLPAIY/9lQscZbwfT
-crMedYigmly536pehNlVc7g+az5ZBiLx8JH5Z/pAokRBVjCSnY6Q3Hyw2kOR4Tgkj+ATUEsBAhQD
-FAAAAAgAAAAhAIslZnJaAQAA8gIAABEAAAAAAAAAAAAAAIABAAAAAFAxMTEwQVNTRU1CTFkucGxi
-UEsFBgAAAAABAAEAPwAAAIkBAAAAAA==
+create or replace assembly asm_plain wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+57
+22 55
+473MsyDKaQjZxWUjec/qXtKXhWcwg8d0y5+BMpv0w1pW//CWhaFHR164dCtprmEYJlAM+vrM
+xMmmpjRznnk=
+
+/
+create assembly app."Asm_Quoted" wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+57
+27 5d
+b3SUQ47ZCy/xrZnjjmzWO8QMsrMwg8d0y5+BMpv0w2nAVv/wKFbXlqEuzAYJabh0K2muYRgm
+dwz6+szEyaamQxaZqw==
+
+/
+create or replace assembly asm_ts timestamp '2000-01-01:00:00:00' wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+57
+1f 51
+PbDbbYTFdEum3gHyXUD4cpd/rSQwg8d0y5+BMpv0w1pW//CWPiu4dCtprmEYJiUM+vrMxMmm
+pnWbveY=
+
+/
+grant execute on asm_plain to public;

@@ -1,9 +1,56 @@
-UEsDBBQAAAAIAAAAIQChmxtfXAEAAO0EAAARAAAAUDEwMjBDSEFSU0VUUy5zcWzF009LAkEUAPC7
-4Hd4niwQclcNMjrsbmsJtsj6h26yrhMEhjbpffUiHUsCCSP1YkGHCgLRIOh9gZmv4CdpTM/LFIWH
-ebw3w5v5Mcy4lDgNAjUKlNSrjkugTmsuqTQpAeOipJxAOhcMABRLhpbCS7AKR7ppQ3IPlN3lfN48
-zkNRs41DzVY3lGh0c7EaNig+nBEoU5xV8ZEADqDqgOvQBgmLTt08SFuLDaxCJiNq09oHI1dSUiLf
-CgZcf1ZZ/S0rS09dkgRRw7z9BHOvK0b/vFlrkMrcu/Oh6aoUzSmvaGzIxqzFRiL22K28kN1zj03Y
-K3vj7QiwdzbhXgjETjM2Zc8+QE2XAqqxdQHVmBTQja8LaMSlgLHtnX8Rfj/IftcHKE6WEirNFZC3
-eIdf8TbviOOmfwD0+7sFOVs9scLhEMf4giMRe/iD2/v8wIHouMYbHEUA+yIfhPxg2cRS9gVQSwEC
-FAMUAAAACAAAACEAoZsbX1wBAADtBAAAEQAAAAAAAAAAAAAApAEAAAAAUDEwMjBDSEFSU0VUUy5z
-cWxQSwUGAAAAAAEAAQA/AAAAiwEAAAAA
+create or replace procedure Cs_1f IS
+  V_CAFÉ NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Crème brûlée à la carte';
+BEGIN
+  NULL;
+END CS_1F;
+/
+create or replace procedure Cs_b2 IS
+  V_CAFÉ NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Price: 100 € – “quoted”';
+BEGIN
+  NULL;
+END CS_B2;
+/
+create or replace procedure Cs_ab IS
+  СЧЁТЧИК NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Привет, мир! Ёлка';
+BEGIN
+  NULL;
+END CS_AB;
+/
+create or replace procedure Cs_23 IS
+  СЧЁТЧИК NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Привет, мир! Ёлка';
+BEGIN
+  NULL;
+END CS_23;
+/
+create or replace procedure Cs_c4 IS
+  СЧЁТЧИК NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Привет, мир! Ёлка';
+BEGIN
+  NULL;
+END CS_C4;
+/
+create or replace procedure Cs_369 IS
+  СЧЁТЧИК NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Привет, мир! € ✓';
+BEGIN
+  NULL;
+END CS_369;
+/
+create or replace procedure Cs_1u IS
+  счётчик NUMBER := 1;
+  V_TEXT VARCHAR2(100) := 'Привет, мир! €';
+BEGIN
+  NULL;
+END CS_1U;
+/
+create or replace procedure Cs_1p5 IS
+  áçñâçØÚ NUMBER := 1;
+  V_TEXT VARCHAR2(100) := '¿àØÒÕâ, ÜØà!';
+BEGIN
+  NULL;
+END CS_1P5;
+/

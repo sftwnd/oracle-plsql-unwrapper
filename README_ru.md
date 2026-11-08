@@ -39,7 +39,7 @@
 mvnw.cmd clean package
 ```
 
-Сборка запускает тесты: они побайтово сравнивают результат с эталонными файлами из `oracle-plsql-unwrap-v2/src/test/resources/samples`.
+Сборка запускает тесты: они побайтово сравнивают результат с эталонными файлами из `oracle-plsql-unwrap-v2/src/test/resources/samples`. Эталоны хранятся как есть, байт в байт, а `SHA256SUMS` рядом с ними перечисляет их контрольные суммы, которые проверяет тест: переводы строк и пробелы в конце строк должны пережить git и редакторы, см. [ADR 0016](docs/adr/0016-test-references-with-checksums_ru.md).
 
 Профиль `coverage` добавляет JaCoCo, отчёт по всем модулям — в `oracle-plsql-unwrapper/target/site/jacoco-aggregate`. GitHub Actions собирают проект на JDK 8, 11, 17, 21 и 25 и анализируют его в SonarCloud, см. [ADR 0014](docs/adr/0014-continuous-integration_ru.md). Выпуск загружается в Maven Central профилем `release`, см. [ADR 0015](docs/adr/0015-release_ru.md).
 

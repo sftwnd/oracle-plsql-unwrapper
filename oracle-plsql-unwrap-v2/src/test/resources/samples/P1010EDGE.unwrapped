@@ -1,5 +1,22 @@
-UEsDBBQAAAAIAAAAIQDKaO24bQAAADcBAAANAAAAUDEwMTBFREdFLnNxbEsuSk0sSVXIL1IoSi3I
-SUxOVSgoyk9OTSktSlVITUlPjU/KyU/OVvAM5uVycnX39OPlUlDwC/XxseblcvVzsVbQ19LS5+UC
-omSiDIrPycxLxWka0CASjEvMyy4m5DwFEhyYlx9fnJNYnEGM8wBQSwECFAMUAAAACAAAACEAymjt
-uG0AAAA3AQAADQAAAAAAAAAAAAAAgAEAAAAAUDEwMTBFREdFLnNxbFBLBQYAAAAAAQABADsAAACY
-AAAAAAA=
+create or replace procedure edge_block IS
+BEGIN
+  NULL;
+END; /**/
+/
+create or replace procedure edge_block_line IS
+BEGIN
+  NULL;
+END;
+/**/
+/
+create or replace procedure edge_blanks_block IS
+BEGIN
+  NULL;
+END;   /**/
+/
+create or replace procedure edge_no_slash IS
+BEGIN
+  NULL;
+END;
+/**/
+/

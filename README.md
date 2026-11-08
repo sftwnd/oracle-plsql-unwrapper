@@ -39,7 +39,7 @@ On Windows:
 mvnw.cmd clean package
 ```
 
-The build runs the tests: they compare the output byte by byte with the reference files in `oracle-plsql-unwrap-v2/src/test/resources/samples`.
+The build runs the tests: they compare the output byte by byte with the reference files in `oracle-plsql-unwrap-v2/src/test/resources/samples`. The references are stored as plain bytes, and `SHA256SUMS` next to them lists their checksums, which a test checks: line breaks and trailing blanks must survive git and editors, see [ADR 0016](docs/adr/0016-test-references-with-checksums.md).
 
 The profile `coverage` adds JaCoCo, with the report of all the modules in `oracle-plsql-unwrapper/target/site/jacoco-aggregate`. GitHub Actions build the project on JDK 8, 11, 17, 21 and 25 and analyze it in SonarCloud, see [ADR 0014](docs/adr/0014-continuous-integration.md). A release is uploaded to Maven Central with the profile `release`, see [ADR 0015](docs/adr/0015-release.md).
 

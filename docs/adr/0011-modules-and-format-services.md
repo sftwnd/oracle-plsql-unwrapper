@@ -58,8 +58,8 @@ C4Container
   it tells what the distribution restores, and the same code serves a distribution with other formats.
 - Without an implementation of the format V1 a unit of this format is found by `V1UnitRejector`, a class of the
   unwrapper and not a service, and reported with `UnwrapException`. An implementation with the name `V1` replaces it.
-- Each module with samples or shared tests attaches a test jar: `Samples` of the SPI, the samples of V2, the launch test
-  of the unwrapper.
+- Each module with samples or shared tests attaches a test jar: `Samples` and `ReferenceChecksums` of the SPI, the
+  samples of V2, the launch test of the unwrapper.
 - The artifact `oracle-plsql-unwrapper` holds the unwrapper with the format V2 only. The artifact
   `oracle-plsql-unwrapper-pro` of the project of the same name depends on it and adds the format V1.
 

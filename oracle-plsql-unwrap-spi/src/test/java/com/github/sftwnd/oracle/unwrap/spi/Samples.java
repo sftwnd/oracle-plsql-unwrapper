@@ -2,21 +2,19 @@
 
 package com.github.sftwnd.oracle.unwrap.spi;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.zip.ZipInputStream;
 
 /**
  * Samples of a format, the resources {@code /samples/*} of its tests: the wrapped text ({@code .wrapped}) and the
  * restored text ({@code .unwrapped}). The reference text of a synthetic sample ({@code P*}) is verified by wrapping it
- * again: WRAP of the same version gives the same unit. A sample is not stored in plain form: it is a Base64-encoded
- * zip archive with a single file. The content is read as ISO-8859-1 so that the comparison is byte-for-byte; a
+ * again: WRAP of the same version gives the same unit. A sample is stored as the bytes WRAP wrote or the unwrapper
+ * restored, line breaks and trailing white space included, and its checksum is in {@code /samples/SHA256SUMS}
+ * ({@link ReferenceChecksums}). The content is read as ISO-8859-1 so that the comparison is byte-for-byte; a
  * reference of V2 units whose text is in other character sets is stored and read as UTF-8.
  */
 public final class Samples {
@@ -48,14 +46,7 @@ public final class Samples {
             if (in == null) {
                 throw new IllegalArgumentException("No sample " + name);
             }
-            // The MIME decoder skips the Base64 line breaks
-            byte[] archive = Base64.getMimeDecoder().decode(bytes(in));
-            try (ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(archive))) {
-                if (zip.getNextEntry() == null) {
-                    throw new IllegalArgumentException("Empty sample " + name);
-                }
-                return new String(bytes(zip), charset);
-            }
+            return new String(bytes(in), charset);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
