@@ -28,7 +28,10 @@ services (ADR 0011), so each of the three ways to run has to find them.
 - Next to its ordinary jar an unwrapper has an executable jar with all the classes,
   `target/<artifact>-<version>-all.jar`, for `java -jar` on any JDK. `maven-assembly-plugin` builds it from
   `src/assembly/executable-jar.xml` of the module `oracle-plsql-unwrapper`: the manifest is new, the providers in
-  `META-INF/services` are merged, and so are the license texts in `META-INF/LICENSE`.
+  `META-INF/services` are merged, and `META-INF/LICENSE` is the one of the jar of the unwrapper, as it is. The SPI and
+  the formats, under the same license, leave theirs out. The handler `file-aggregator` of `maven-assembly-plugin` is not
+  used for the license: it writes the time of the build into the file, and the executable jar and the distribution
+  would differ with every build. `UnwrapperLaunchIT` checks that the license text of both is the file `LICENSE`.
 - `UnwrapperLaunchIT` starts the built distribution and the executable jar in a JVM of their own in each of these ways.
 
 ## Rationale
