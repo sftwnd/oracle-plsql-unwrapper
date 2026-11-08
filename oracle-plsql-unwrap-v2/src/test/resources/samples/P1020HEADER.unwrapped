@@ -1,14 +1,65 @@
-UEsDBBQAAAAIAAAAIQBott7KkwIAAPkFAAAPAAAAUDEwMjBIRUFERVIuc3FslVRdb5swFH1H4j9c
-9cVJ1zak6dpo1R4ImIaNrxLoJk0TMsTtWAlQYrT0388GQlq1zTopJDjce84959gkFSWMQlFBRcuM
-JBTKqkjosq4o6HRVRB5fDrzIdIB/blRfm6v+6RF4kRsGIC4ntGfYH4IaBnNTBy30fewEUbjAPpgL
-WQKQJfF9EwX4e9BDDMaKMoRPnwHZ6YYuQSNrCgg91AWjS4SA0Q1DlyA6D66bPx2yogcdnWgcX7aw
-1zvM0xbyAf0wGVrDw3GWMlqR7Cfqah3rRTHK0pwbkFNZau7Yn0JUz/CV6YimBbawFsDo8AOk+ZJu
-BmwIhyPQ3NAJBodDbkvgdnYYvmuDHqoWBPBtjn0MiCDgFGrLbxrQOrngMixeNccNBXT9fJqnWpse
-7Oi8j9+KGx3bbuT5rsbXI1lK2vBAxNfnB08SBFDL8mSR/Gpi5MuB1+clsulFinFajhZZ87EaYBBU
-WA+5kLyItgR7G5M9+6nTBm2Q3IQGpYWA9yGonndw0uFEXNd/wMjSbZ0nLC1yWbLrjKWRJeL2cRD6
-znZbPdPWPRp35tuhFZiRZTr4zUFJck/uqDA98u7vtkdCxwZv8kFtTsPOU68J2AgdLTBdB4zns3Ss
-XHHkfb36F2VcLB973u7cPWF63aa3yXf1vQldzztmYo9l64Eb/+aiwZ19ESdoIAjVjuBILGzccO3m
-tGVpuBe1l8mhZak19CXK62r37LAsjStStchWGouh0ago2YiU5Yg/FL8n6+a9sF9xQGIga2AkznjB
-LeT1KqZV23Z8LKbdZ1e6hIJfaDqeTs8vJtjAxmwyOTvHyuRMmSrKqTKdfLzAGDVO7ozdmtp5d1eR
-nAHd0KQWTHm/L1gBZR1nacLr/gJQSwECFAMUAAAACAAAACEAaLbeypMCAAD5BQAADwAAAAAAAAAA
-AAAAgAEAAAAAUDEwMjBIRUFERVIuc3FsUEsFBgAAAAABAAEAPQAAAMACAAAAAA==
+create or replace procedure Demo_Proc(P_IN IN VARCHAR2, P_OUT OUT NUMBER) AUTHID CURRENT_USER IS
+  
+
+  V_TEXT VARCHAR2(100) := 'Mixed Case ''quoted'' text'; 
+  "QuotedName" NUMBER := 1;
+  V_Q VARCHAR2(20) := q'[It's q-literal]';
+  V_NL VARCHAR2(20) := 'line one
+line two';
+BEGIN
+  SELECT /*+ index(t) */ COUNT(*) INTO P_OUT FROM DUAL T WHERE 'a' = 'A';
+  IF P_IN IS NULL THEN
+    P_OUT := "QuotedName";
+  END IF;
+END DEMO_PROC;
+/
+create   or  replace   procedure   App.Sch_Proc   (P NUMBER) IS
+BEGIN
+  NULL;
+END;
+/
+CREATE PROCEDURE no_replace IS
+BEGIN
+  NULL;
+END;
+/
+create or replace procedure "Quoted Name" IS BEGIN NULL; END;
+/
+create or replace procedure "APP"."Quoted_Sch" IS BEGIN NULL; END;
+/
+create or replace
+function
+Multi_Line RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END MULTI_LINE;
+/
+create or replace package App_Pkg AUTHID DEFINER AS
+  PROCEDURE P;
+  FUNCTION F RETURN NUMBER;
+END APP_PKG;
+/
+create or replace package body App_Pkg  IS
+  PROCEDURE P IS BEGIN NULL; END;
+  FUNCTION F RETURN NUMBER IS BEGIN RETURN 1; END;
+END APP_PKG;
+/
+create or replace type App_Obj AS OBJECT (
+  A NUMBER,
+  MEMBER PROCEDURE M
+);
+/
+create or replace type body App_Obj
+AS
+  MEMBER PROCEDURE M IS BEGIN NULL; END;
+END;
+/
+create or replace library App_Lib AS '/opt/app/lib/app.so';
+/
+create or replace type App_Tab as table of number;
+/
+--
+  create or replace type App_Oid oid '8188673EFEFB3346E0340800208357EE'
+  AS OBJECT (A NUMBER);
+/
+grant execute on App_Pkg to public;

@@ -1,17 +1,201 @@
-UEsDBBQAAAAIAAAAIQCxBW9lGwMAAL8IAAAQAAAAUDEwMjBDT01NRU5ULnBsYr3VS4+qSBgG4PXw
-K9i74CYi6ZyFYCsoXrGlYdMpiuIilyoRKPDXD60zJycTT59eTDcLSAoS8j289QJLBCrE4pItEckA
-RCwpMURBXSIW5m9ZUqA3iPMcFRVLS0AIClgG8LeDERjgw+B/OinMUGCVgDnvRnGSlqc4u6gGMUpX
-DLPLOH3RugmN5KLIlUG4KsWOzlrAcVo3SOFqvFQ4WMFaUF9X5NW26GrSMVy1nOtOnuXus2m5zSSC
-4aqebikXneyW07kVN9JWeO5ZdkXJGSxQsD4zDMfAj0n+0bjRfDmJJLGjgIkJ5k2vBZLINQM+WfDa
-4KVVjoYD6AMSveYk69WqwqNqWKM9beEHJLBKqDsfLkE+rU+WNvnx4xMEfoZh+m2xuBvgFz+6HnZX
-q8XTeB3P03U53PvQNVD60CDjzjXHn39aXJdHPhlPJ8yqUew4ygjxck3XRYuahtFHgMDewBVCK/29
-AYApiG4CSRH0o6PgmxBURhqyI5VB1GxGmzGeC41KkrkhKXQs56GHtahHyIfqYROqvgqdhqOw3xc4
-CI/YVviyUTuBP+inonQaPNowHlZSOdZ3MPDdpphdYRBJQ0/mSfqy7gbDz4SgX0qKNxBWqPzyCIgh
-O5IZR2hCaNNsfbjAjridtOlC6p02powfRcCJwczYi2LtBE7sRnkWmM2ETq0Bw2N3AYDjRbuoSsa6
-1nbSgpz9SChN/X1ylo1K0H9U1CJYvxMU/x24wiyp/SyBT39iqoukevNRiMuvb4s7k7Dj1oYZxus8
-tYvD8JA8X687ee5rJ/Mhk6BmjrpUOqvKnXHW/YkJ7KlitXemz8z+PQm574/LMVPCUycdClnf8uFG
-n2scNu2gev5odNkTwCzRQV8QNCP1vSjNYOGN0Fa8JOapLQglW9/GASH6/BJFt/3hoygpeoSizrIn
-BhXBU7/416Pk/OLwYXCqjtzcKuCz4ML2l6y/H/ZvyH1UPv02me/Pfz6RGbh8fWmLY1YOGO7Z3iDj
-9Soe2u3syMWnqFxNqDWjHf/wX46P/v7fov61p5mfRQ3znJSNUpwnt2/wN1BLAQIUAxQAAAAIAAAA
-IQCxBW9lGwMAAL8IAAAQAAAAAAAAAAAAAACAAQAAAABQMTAyMENPTU1FTlQucGxiUEsFBgAAAAAB
-AAEAPgAAAEkDAAAAAA==
+create or replace procedure cm_line_comment wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+41 7d
+qQ6hikrjhls9HpHrY2fls8kUByAwg5nnm7+fMr2ywFxa//By+kcM8K7/ctcu19XMpXSLwMAy
+/tKGCWmlmYEILYvAgcfMuDPw/gjSx/C/M/6BMoGZLStwpqaJedNq
+
+/
+create or replace procedure cm_comment_line wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+33 6d
+hpo0IZxa32/v+0iJ0B+Ux7VHWawwg5nnm7+fMr2ywFxa//Cu/3LXLtfV9HL6RwxcpXSLwMAy
+/tKGCWmlmYEILYvAgcctiwYG4KamDujLBA==
+
+/
+create or replace procedure cm_block_comment wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+33 6d
+oUbgzTQzLxoDhNhGkNr4RbcYHekwg5nnm7+fMr2ywFxa//Cul/qu/0qu/3LXLtfVzKV0i8DA
+Mv7ShglppZmBCC2LwIHHLStpcKamY1fLkA==
+
+/
+create or replace package cm_indented_comment wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+9
+34 69
+ewIv6O8oG1v9piGH37w85mfZoBgwg5m49TOf9b9cWv/wckcModfVoS70rv9y10TCjnrWvo6O
+Zo7k5hCQcdbYvnFzcdg34Z50pkUNy+4=
+
+/
+create or replace procedure cm_plain_after wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+2f 65
+W1vfcSwlNTscypYy3OyfwZjOI5owg5nnm7+fMr2ywFxa//CWhaFHR22uWdWhYgmldIvAwDL+
+0oYJaaWZgQgti8CBxy3Jpqbg1rIC
+
+/
+  grant execute on cm_plain_after to public;
+create or replace procedure cm_unit_before wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+2f 65
+1Q/NHIfhNmkSnT4TiEzzQ5GbBjIwg5nnm7+fMr2ywFxa//CW19lW9K7yLtmW8lyldIvAwDL+
+0oYJaaWZgQgti8CBxy3JpqaRw7Lx
+
+/
+  create or replace procedure cm_unit_after wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+34 69
+sVl7fjy3Tn5CP0fOCGB/oISdtEIwg5nnm7+fMr2ywFxa//CW19lW9K5Z1aFiCaV0iwlpuMAy
+/tIdJZ6eP2siIjxnpwpPbSodppCGsgg=
+
+/
+begin
+  null;
+end;
+/
+	grant execute on cm_unit_after to public;
+create or replace type cm_tab as table of number;
+/
+  grant execute on cm_tab to public;
+create or replace procedure cm_last wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+28 5d
+/ESOeHXz2TxPFV/hjgrMAwLFwy0wg5nnm7+fMr2ywFxa//ByoVbRzKV0i8DAMv7ShglppZmB
+CC2LwIHHLcmmprv7nqA=
+
+/

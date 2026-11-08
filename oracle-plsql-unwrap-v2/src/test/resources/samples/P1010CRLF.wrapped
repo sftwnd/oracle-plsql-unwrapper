@@ -1,12 +1,99 @@
-UEsDBBQAAAAIAAAAIQCYzkJKHQIAAGgEAAANAAAAUDEwMTBDUkxGLnBsYr3SS3OiQBQF4H3/it65
-oFI07yZVWfBUUIKKeegm1UArQYEWWxB/fSbOYmaRmdVMzuKu7uZ8dbKWEk4hHxiFTVq+Ze1hC0Ec
-uHCELcW1DayZ2HY115M9pKgIIyQjz3V0yR5B2LeEMZpDQNAtQAIkzfJ/dHKgIahLYMz6R8sioiAE
-SN5M5HiCJ+sZP+141u+0GuWzImOpkI5n4qySQlr29XQw3nmcr4uuPk38wuuXyzQGFguNrqxpY76o
-W51UvdnOkPXwAIAIsi8g3tKGFxDAVRB5ycqK5nAkIyTdIeNONu8l+R7p98gY/fi4gaE/R5aQhL4B
-zCBQN4F2zpumSfRA6+Z6P157Lp7NhY29sa2vwHinnRpnXM2dhd6yI3ftyfIwXskcNOXzUReq7lDT
-i/DOiK5HSro9V5sjjau/wZ1IRX+iWLrlK65jSsYnAfZ/rcg3sClb37Ei5XNF2OStwF4dtlZO4o49
-jv3rE+Kvx12Pv0SZhmISHa5TJGWaxKcC7bMXb2X7wD+pzr4+C3Gul1JaiOxI8MoRqt8wmha2lB1I
-RiFrm4zm55bCGwynF/6fCxtApRCbgC2zKKZMqZflU3BG6eDVyX6+uIRr9bNwXRnCNmrlofcHddB4
-kiZFguNtxF4XbdkfmDZ09UVZWSAyCrRJnnHw7LoJDjNCDLcUg/DinOd9ZA0iD/Jw977ZLUqjQpdr
-RvZEXeKctV2Ahf1tJR9QSwECFAMUAAAACAAAACEAmM5CSh0CAABoBAAADQAAAAAAAAAAAAAAgAEA
-AAAAUDEwMTBDUkxGLnBsYlBLBQYAAAAAAQABADsAAABIAgAAAAA=
+create type obj_crlf 
+OID '8A3DB78598BD5DE2E034080020EDC61B'  wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+d
+50 61
+GpwNAAa/++I02ZH2OH8HYLtsgtcwg5n0dLhcpb+bGL/Lm1JejwnKy7itOdYhvnsHFhEwRRbO
+ApJ7vjneo9W4f6amw9rL0A==
+
+/
+create type obj_crlf_both 
+ TIMESTAMP '2001-07-29:12:06:07' 
+ OID '00000000000000000000000000021010'  wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+d
+7a 69
+5udoooS6I5vP6wGYED8LP+ZBZBAwg5n0dLhcpb+bGL/Lm1Jtv5soCGmPCQ6rpqtDBHRlGT2t
+ojVq6+mvlnex+ipa66M3bfumZqeOmA==
+
+/
+create type obj_crlf_same OID 'A6AF3DC91710108FE034080020F7892A'  wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+d
+53 61
+89tr+pXCpY3s/gpNGFzU0tXqgw8wg5n0dLhcpb+bGL/Lm1JtKJ/SMlzK01c51tK+ewcWETBF
+Fs4Cknu+Od6j1bh/pqa8TC+m
+
+/
+create or replace procedure crlf_text wrapped 
+a000000
+1
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+7
+4e 89
+pRcMOep3nRjUIu0byEnSkPQxJY4wg5nnm7+fMr2ywFy4y5tSbShS8OfMpXQrjwlp5yvnx3TA
+M7h0ZSV8IVDDS8Jcaa7Dj/IJxCuPwMAy/tIdJgiZgQj7m0xzcaka4R8dprvI8+k=
+
+/

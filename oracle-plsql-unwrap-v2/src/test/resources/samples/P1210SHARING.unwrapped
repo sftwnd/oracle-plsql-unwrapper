@@ -1,10 +1,74 @@
-UEsDBBQAAAAIACAAIQB3dZzHrAEAADcGAAAQAAAAUDEyMTBTSEFSSU5HLnNxbKWUQU+DMBTH70v2
-HV68bHpw03gzHIA1E93YLJDoqSmlm0QGWLrEfXtbxjTNXBzI4fW1pL//6z/tY4JTyaEQIHiZUcah
-pOydrtVINlxSqN6oSPO1pScJVQte0O8BvIAfzR2E7/s95E9UHPV77CQrLpLdSaBdA5d44aJJhBE8
-Kwlw0NTzlcZsdg97gTNklERe5PwgARb4Cx81Au0qpmV5XZKKvfENheDBxp4/tfa0KHzwJuBGGCM/
-JFGAcCdPLkrysS0kTy6+LamL78IqSZbmvNIbG5ZOLR00s9/rBmXFZsNzWcHoCihcjb6NVfNYzy2d
-MZ39o3S6klyYHnQlMcarKo0zbuJs10VB4DkzBM4rDJe2+2RPESzJHIX2ZUcxyT/lX2Tj4rSSEQXj
-yVZw+CA6P74i9QPRwPqNnA2jYl2ZsOGyqeiyLXe1zZlMixxWRKcmFqMwwn6DNsnNr5uz6bXVJvDI
-2ZZ0uStVIPVg3pUAFs4jckMY2gdj/oAUaWIy9MJgfPq7vRnfjQftpeo2+nvR+uRzVFvz00nnrTtp
-lsaCih1kqqHER8YMRp+D/c4vUEsBAhQDFAAAAAgAIAAhAHd1nMesAQAANwYAABAAAAAAAAAAAAAA
-AIABAAAAAFAxMjEwU0hBUklORy5zcWxQSwUGAAAAAAEAAQA+AAAA2gEAAAAA
+create or replace package p_meta sharing=metadata IS
+  X NUMBER;
+END;
+/
+create or replace package body p_meta sharing=metadata AS
+  PROCEDURE Q IS BEGIN NULL; END;
+END;
+/
+create or replace package  p_none sharing = NONE AS
+  X NUMBER;
+END;
+/
+create or replace package app.p_schema SHARING=NONE AUTHID CURRENT_USER IS
+  X NUMBER;
+END;
+/
+create or replace package "p_quoted" sharing=none IS
+  X NUMBER;
+END;
+/
+create or replace package p_lines
+  sharing
+  =
+  none
+IS
+  X NUMBER;
+END;
+/
+create or replace package p_comments /* a */ sharing /* b */ = /* c */ none IS
+  X NUMBER;
+END;
+/
+create or replace package p_after sharing=none  IS
+  X NUMBER;
+END;
+/
+create or replace package p_accessible sharing=none ACCESSIBLE BY (PACKAGE P_META) IS
+  X NUMBER;
+END;
+/
+create or replace package p_text ACCESSIBLE BY (PACKAGE P_META) SHARING=NONE IS
+  X NUMBER;
+END;
+/
+create or replace procedure q_proc sharing=none IS
+BEGIN
+  NULL;
+END;
+/
+create or replace procedure q_args sharing=none (P NUMBER) IS
+BEGIN
+  NULL;
+END;
+/
+create or replace function f_func sharing=none RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END;
+/
+create or replace function f_text RETURN NUMBER SHARING=NONE IS
+BEGIN
+  RETURN 1;
+END;
+/
+create or replace type t_type sharing=none AS OBJECT (A NUMBER);
+/
+create or replace type t_oid sharing=none oid '00000000000000000000000000021040' AS OBJECT (A NUMBER);
+/
+create or replace type body t_type sharing=none AS
+  MEMBER PROCEDURE M IS BEGIN NULL; END;
+END;
+/
+create or replace library l_lib sharing=none AS '/x';
+/

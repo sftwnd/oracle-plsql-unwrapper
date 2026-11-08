@@ -1,0 +1,12 @@
+# Test references are compared byte for byte (ADR 0016): an editor keeps their line breaks and trailing white space
+root = true
+
+[*.{wrapped,unwrapped}]
+charset = unset
+end_of_line = unset
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+[SHA256SUMS]
+end_of_line = lf
+insert_final_newline = true

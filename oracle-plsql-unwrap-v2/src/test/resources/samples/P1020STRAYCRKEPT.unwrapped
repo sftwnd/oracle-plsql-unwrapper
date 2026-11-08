@@ -1,8 +1,53 @@
-UEsDBBQAAAAIAAAAIQDg8MoOKwEAAFMFAAAUAAAAUDEwMjBTVFJBWUNSS0VQVC5zcWx91Mtqg0AU
-gOG9kHc4O9NN6xnNrdKFqdIK1qSJdlOKiE6IIDEdzaKQh6+50hLPAV0M38ws/hkmUzJtJFQKlNyW
-aSZhq6pM5jsloW5U+pNkCvwlaHD4gmQeOH4I8OEsnl+dhegLw7izT/QezyLPvaGp99Ku+LP48Qn0
-VVGWUoGBuk2RoMmkyaJpQNOQphFNY5om+v8orZ2n2b3uJWiQuyFdCelKSFdCuhLSlZCuhHQlpCvh
-hCRB1xB0DUHXEHQNQdcQnTVU3UBZbGRPq2VWbfLj4PbAr5sMGRsxNmas44JdzDQYQ8YEYyZjFmMD
-xpguJtPFZLqYTBero8u3/tmsC5Wfz3NV7VSzPg6+TpPd6dsymcXRPI7u2z8J/NDrX67Dfn/d7PDS
-eaFraw/aL1BLAQIUAxQAAAAIAAAAIQDg8MoOKwEAAFMFAAAUAAAAAAAAAAAAAACAAQAAAABQMTAy
-MFNUUkFZQ1JLRVBULnNxbFBLBQYAAAAAAQABAEIAAABdAQAAAAA=
+create or replace procedure stray_cr IS 
+  
+  L_PLAIN  VARCHAR2(200); 
+  L_QUOTED VARCHAR2(200); 
+BEGIN 
+  L_PLAIN := 'filler 01'; 
+  L_PLAIN := 'filler 02'; 
+  L_PLAIN := 'filler 03'; 
+  L_PLAIN := 'filler 04'; 
+  L_PLAIN := 'filler 05'; 
+  L_PLAIN := 'filler 06'; 
+  L_PLAIN := 'filler 07'; 
+  L_PLAIN := 'filler 08'; 
+  L_PLAIN := 'filler 09'; 
+  L_QUOTED := L_PLAIN;
+  L_PLAIN := 'filler 10'; 
+  L_PLAIN := 'filler 11'; 
+  L_PLAIN := 'filler 12'; 
+  L_PLAIN := 'filler 13'; 
+  L_PLAIN := 'filler 14'; 
+  L_PLAIN := 'filler 15'; 
+  L_PLAIN := 'filler 16'; 
+  L_PLAIN := 'filler 17'; 
+  L_PLAIN := 'filler 18'; 
+  L_PLAIN := 'filler 19'; 
+  L_PLAIN := 'filler 20'; 
+  L_PLAIN := 'filler 21'; 
+  L_PLAIN := 'filler 22'; 
+  L_PLAIN := 'filler 23'; 
+  L_PLAIN := 'filler 24'; 
+  L_PLAIN := 'filler 25'; 
+  L_PLAIN := 'first line
+second line'; 
+  L_QUOTED := 'filler 26'; 
+  L_QUOTED := 'filler 27'; 
+  L_QUOTED := 'filler 28'; 
+  L_QUOTED := 'filler 29'; 
+  L_QUOTED := 'filler 30'; 
+  L_QUOTED := 'filler 31'; 
+  L_QUOTED := 'filler 32'; 
+  L_QUOTED := 'filler 33'; 
+  L_QUOTED := 'filler 34'; 
+  L_QUOTED := 'filler 35'; 
+  L_QUOTED := 'filler 36'; 
+  L_QUOTED := 'filler 37'; 
+  L_QUOTED := 'filler 38'; 
+  L_QUOTED := 'filler 39'; 
+  L_QUOTED := 'filler 40'; 
+  L_QUOTED := q'[third line
+fourth line]'; 
+  DBMS_OUTPUT.PUT_LINE(L_PLAIN || L_QUOTED); 
+END;
+/

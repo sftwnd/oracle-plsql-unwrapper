@@ -1,8 +1,72 @@
-UEsDBBQAAAAIAAAAIQAifR2VLgEAAPQDAAANAAAAUDEwMTBUQUlMLnNxbJWSwW6DMAyGz0XiHXzr
-1sPQzjlBG01sjE1Ape2EQsiqqCygECT69gslmha1hXGJbEf5/P+xqWREMaglSNZUhDJoZE1Z2UkG
-ivAq10UuIExdJ8BPYew6APE+ipDr4HinT8916ByjqIg45hUX7BYIMj+M8iDy45c8CmOsqxq92Xjn
-BgdJhALWM9oNfcQFVdXQdEXFKbqm5qsTVPHLZy0kONsnsdbxGuDE1mauHn+NWoquWCb0SA7GcKsz
-jR+AAB+G/9dp+u5vcYoA4F/Qoi5PI1mRwmA/LSxaTYLUqTHSzpGfwlvwjLcZ3IU7w7lHcw7toY4e
-J6eKhnTOok395j0rb/IG1mqZTC5KJtQEcxlmXJ92UiHAcnlz/zhDrXghiTQ7opNhwmtPB17/0NZr
-e7Q/UEsBAhQDFAAAAAgAAAAhACJ9HZUuAQAA9AMAAA0AAAAAAAAAAAAAAIABAAAAAFAxMDEwVEFJ
-TC5zcWxQSwUGAAAAAAEAAQA7AAAAWQEAAAAA
+create or replace procedure tail_plain IS
+BEGIN
+  NULL;
+END;
+/
+create or replace procedure tail_blank_line IS
+BEGIN
+  NULL;
+END TAIL_BLANK_LINE;
+
+/**/
+/
+grant execute on tail_blank_line to public;
+create or replace function tail_blank_lines RETURN NUMBER IS
+BEGIN
+  RETURN 1;
+END;
+
+
+/**/
+/
+create or replace package tail_spaces IS
+  X NUMBER;
+END TAIL_SPACES;   
+/**/
+/
+create or replace package body tail_tab IS
+  Y NUMBER;
+END;	
+/**/
+/
+create or replace type tail_type AS OBJECT (ID NUMBER);
+
+/**/
+/
+create or replace procedure tail_spaces_line IS
+BEGIN
+  NULL;
+END;
+    
+/**/
+/
+create or replace procedure tail_mixed IS
+BEGIN
+  NULL;
+END;  
+	
+
+/**/
+/
+create or replace procedure tail_indented IS
+BEGIN
+  NULL;
+END;
+/
+create or replace procedure tail_indented_blanks IS
+BEGIN
+  NULL;
+END;  
+  /**/
+/
+create or replace procedure tail_indented_line IS
+BEGIN
+  NULL;
+END;
+
+  /**/
+/
+create or replace library tail_lib AS '/lib/x.so';
+
+/**/
+/
