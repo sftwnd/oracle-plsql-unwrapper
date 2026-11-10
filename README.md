@@ -111,18 +111,18 @@ Files.write(Paths.get("S.SQ"), unwrappedScript.getBytes(StandardCharsets.ISO_885
 
 The text of a V2 unit is decoded in the character set the unit names, so a script with V2 units is written in an encoding that covers it, see [Format V2](#format-v2).
 
-Options are passed to the constructor, and `new Unwrapper()` uses `UnwrapOptions.defaults()`. The option `keepStrayCr` keeps a stray CR of a V2 text instead of replacing it with a space, see [Format V2](#format-v2):
+Options are passed to the constructor, and `new Unwrapper()` uses `UnwrapOptions.defaults()`. An option belongs to a format and is set by its name, see [ADR 0017](docs/adr/0017-format-options.md). The format V2 has the option `strayCr`: `keep` keeps a stray CR of a V2 text instead of replacing it with a space (`space`, the default), see [Format V2](#format-v2):
 
 ```java
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapOptions;
 import com.github.sftwnd.oracle.unwrap.Unwrapper;
 
-Unwrapper unwrapper = new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(true));
+Unwrapper unwrapper = new Unwrapper(UnwrapOptions.defaults().withFormatOption("V2", "strayCr", "keep"));
 ```
 
-The default of `keepStrayCr` is `false` unless the system property `com.github.sftwnd.oracle.unwrap.keepStrayCr` is `true`: with `-Dcom.github.sftwnd.oracle.unwrap.keepStrayCr=true` every `new Unwrapper()` keeps stray CRs, so an application can switch it without a change of its code. `withKeepStrayCr` sets the option whatever the property says.
+What no option sets is decided by the format from its system property, which it reads for every unit: with `-Dcom.github.sftwnd.oracle.unwrap.v2.strayCr=keep` every `new Unwrapper()` keeps stray CRs, so an application can switch it without a change of its code. An option wins over the property. The methods `withKeepStrayCr` and `keepStrayCr` of `UnwrapOptions` and the property `com.github.sftwnd.oracle.unwrap.keepStrayCr` (`true` keeps) of the release 1.0.0 stand for this option; they are deprecated and are removed in the next major release.
 
-A format may have options of its own: `Unwrapper.formatOptions()` lists them, and `UnwrapOptions.withFormatOption(format, name, value)` sets one for one `Unwrapper`, see [ADR 0017](docs/adr/0017-format-options.md). The distribution of this project has none, as V2 has no options of its own.
+A format may have options of its own: `Unwrapper.formatOptions()` lists them, and `UnwrapOptions.withFormatOption(format, name, value)` sets one for one `Unwrapper`, see [ADR 0017](docs/adr/0017-format-options.md). In the distribution of this project that is `V2.strayCr` only.
 
 Other `Unwrapper` operations:
 
@@ -149,7 +149,7 @@ The distribution starts the unwrapper from the command line; the script goes fro
 unwrapper/bin/unwrapper S.SQL S.SQ
 ```
 
-`--help` lists the wrapped formats of this distribution, here `V2` only. `--input-encoding` and `--output-encoding` set the encodings, ISO-8859-1 by default, so the text outside the units stays byte for byte; a restored text that does not fit the output encoding is an error, and nothing is written. `--keep-stray-cr` is the option `keepStrayCr`, see [Format V2](#format-v2). `--format-option <format>.<name>=<value>` sets an option of a format; the help lists such options when a format has them. The exit code is 0, 1 if the script cannot be restored, 2 if the arguments are wrong.
+`--help` lists the wrapped formats of this distribution, here `V2` only. `--input-encoding` and `--output-encoding` set the encodings, ISO-8859-1 by default, so the text outside the units stays byte for byte; a restored text that does not fit the output encoding is an error, and nothing is written. `--format-option <format>.<name>=<value>` sets an option of a format, here `V2.strayCr=keep`, see [Format V2](#format-v2); the help lists the options of the formats. `--keep-stray-cr` of the release 1.0.0 stands for `--format-option V2.strayCr=keep` and is left out of the help. The exit code is 0, 1 if the script cannot be restored, 2 if the arguments are wrong.
 
 `bin/unwrapper` (`bin/unwrapper.cmd` on Windows) runs the executable JAR on the JDK of `JAVA_HOME`, or on `java` from `PATH`, and takes options of the JVM from `JAVA_OPTS`.
 
@@ -187,7 +187,7 @@ WRAP 12.1 and later keep a `SHARING` clause that follows the unit name in the he
 
 WRAP 12.1 and later for Linux keep the CR of a source with CRLF in the text of the unit, in string literals too, and write the wrapped lines with LF. In a file with LF the text of a unit is restored as it is, with its CRLF, so the value of a literal does not change and these releases give the same unit again.
 
-WRAP 10.2 to 11.2 for Linux replace a CR right before LF with a space, in string literals too, but they read the source in blocks of 512 bytes and do so within a block only: a CR in the last byte of a block, at the offset 511, 1023 and so on of the source file, stays before the LF that starts the next block. A source with CRLF therefore gives a text whose lines end with a blank, with a CRLF on a few of them, at places that depend on the offsets of the source file, comments removed by WRAP included, and not on the program. Such a CR outside string literals and quoted identifiers is stray: by default the restored text has a space in its place, as its other lines have, and a CR inside a literal or a quoted identifier stays as part of its value. A text counts as such if more of its line breaks outside literals have a blank before them than a CR; the CRs that WRAP 12.1 and later keep stand before the line breaks, so their text stays as it is. With `UnwrapOptions.withKeepStrayCr(true)` the text is restored as the unit holds it. Neither text wraps back to the same file as it is: the CRs stand at other offsets in the restored script, and WRAP replaces them there. The text restored with `keepStrayCr` does once a comment before each CR moves it to the last byte of a block again, so such a file is the same up to stray CRs. In the Oracle distributions these are two ORDS files, `ords_migrate` and `upg_oauth`, with 3 and 1 stray CRs, wrapped by WRAP 10.2 or 11.1 from a source with CRLF.
+WRAP 10.2 to 11.2 for Linux replace a CR right before LF with a space, in string literals too, but they read the source in blocks of 512 bytes and do so within a block only: a CR in the last byte of a block, at the offset 511, 1023 and so on of the source file, stays before the LF that starts the next block. A source with CRLF therefore gives a text whose lines end with a blank, with a CRLF on a few of them, at places that depend on the offsets of the source file, comments removed by WRAP included, and not on the program. Such a CR outside string literals and quoted identifiers is stray: by default the restored text has a space in its place, as its other lines have, and a CR inside a literal or a quoted identifier stays as part of its value. A text counts as such if more of its line breaks outside literals have a blank before them than a CR; the CRs that WRAP 12.1 and later keep stand before the line breaks, so their text stays as it is. With the option `strayCr=keep` of the format (`UnwrapOptions.withFormatOption("V2", "strayCr", "keep")`, `--format-option V2.strayCr=keep`) the text is restored as the unit holds it. Neither text wraps back to the same file as it is: the CRs stand at other offsets in the restored script, and WRAP replaces them there. The text restored with `strayCr=keep` does once a comment before each CR moves it to the last byte of a block again, so such a file is the same up to stray CRs. In the Oracle distributions these are two ORDS files, `ords_migrate` and `upg_oauth`, with 3 and 1 stray CRs, wrapped by WRAP 10.2 or 11.1 from a source with CRLF.
 
 The data of a unit is checked by its SHA-1 digest and its length, and damaged or truncated data is reported as `UnwrapException`. The Base64 lines may be split, joined or have other line endings, as SQL clients and version control leave them.
 

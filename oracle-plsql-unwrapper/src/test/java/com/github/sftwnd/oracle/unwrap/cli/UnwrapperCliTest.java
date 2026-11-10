@@ -48,16 +48,19 @@ class UnwrapperCliTest {
         assertFalse(output().contains("V1"), output());
     }
 
-    /** V2 has no options of its own, so the help neither lists them nor mentions the option. */
     @Test
-    void helpHasNoFormatOptionsWithoutThem() {
+    void helpListsTheOptionOfTheFormatV2() {
         assertEquals(0, run("--help"));
 
-        assertFalse(output().contains("--format-option"), output());
+        assertTrue(output().contains("  --format-option <f.n=v>      option <n> of the format <f>, see below"), output());
+        assertTrue(output().contains("\nOptions of the formats, as --format-option <format>.<name>=<value>:\n"
+                + "  V2.strayCr=space|keep  stray CR of the text: a space or kept as stored, space by default\n"),
+                output());
+        assertFalse(output().contains("--keep-stray-cr"), output());
     }
 
     @Test
-    void rejectsOptionOfFormatThatHasNone() {
+    void rejectsOptionTheFormatDoesNotHave() {
         assertEquals(2, run("--format-option", "V2.layout=canonical"));
 
         assertEquals(String.format("Unknown format option V2.layout%nTry --help%n"), errors());
@@ -116,9 +119,29 @@ class UnwrapperCliTest {
     void keepsStrayCrOnRequest() {
         byte[] wrapped = Samples.read("P1020STRAYCR.wrapped").getBytes(StandardCharsets.ISO_8859_1);
 
-        assertEquals(0, run(wrapped, "--keep-stray-cr"));
+        assertEquals(0, run(wrapped, "--format-option", "V2.strayCr=keep"));
 
         assertEquals(Samples.read("P1020STRAYCRKEPT.unwrapped"), output());
+    }
+
+    /** The flag of the release 1.0.0 stands for the option; a later option of the same name wins. */
+    @Test
+    void keepsStrayCrThroughTheFlagOfTheFirstRelease() {
+        byte[] wrapped = Samples.read("P1020STRAYCR.wrapped").getBytes(StandardCharsets.ISO_8859_1);
+
+        assertEquals(0, run(wrapped, "--keep-stray-cr"));
+        assertEquals(Samples.read("P1020STRAYCRKEPT.unwrapped"), output());
+
+        out.reset();
+        assertEquals(0, run(wrapped, "--keep-stray-cr", "--format-option", "V2.strayCr=space"));
+        assertEquals(Samples.read("P1020STRAYCR.unwrapped"), output());
+    }
+
+    @Test
+    void wrongValueOfFormatOptionIsFailure() {
+        assertEquals(1, run("--format-option", "V2.strayCr=yes"));
+
+        assertEquals(String.format("Option V2.strayCr must be space or keep, not yes%n"), errors());
     }
 
     @Test

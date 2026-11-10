@@ -16,7 +16,6 @@ final class CommandLine {
     private static final String STANDARD_STREAM = "-";
 
     private boolean help;
-    private boolean keepStrayCr;
     private Charset inputEncoding = StandardCharsets.ISO_8859_1;
     private Charset outputEncoding;
     private final List<FormatSetting> formatSettings = new ArrayList<>();
@@ -34,7 +33,8 @@ final class CommandLine {
             if ("-h".equals(arg) || "--help".equals(arg)) {
                 line.help = true;
             } else if ("--keep-stray-cr".equals(arg)) {
-                line.keepStrayCr = true;
+                // Alias of the option strayCr=keep of the format V2, kept for the scripts of the release 1.0.0
+                line.formatSettings.add(new FormatSetting("V2", "strayCr", "keep"));
             } else if ("--format-option".equals(arg)) {
                 line.formatSettings.add(FormatSetting.parse(value(arg, args, ++i, "<format>.<name>=<value>")));
             } else if ("--input-encoding".equals(arg)) {
@@ -74,10 +74,6 @@ final class CommandLine {
 
     boolean help() {
         return help;
-    }
-
-    boolean keepStrayCr() {
-        return keepStrayCr;
     }
 
     /** The options of the formats in the order of the command line; a later one of the same name wins. */

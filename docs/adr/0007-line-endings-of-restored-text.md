@@ -30,11 +30,11 @@ by blanks.
   CR stays. A CRLF of the text stays in a unit with LF, and in a unit with CR it becomes CR.
 - A stray CR of a V2 text becomes a space: a CR outside string literals (`'…'`, `q'…'`, `N'…'`) and quoted identifiers
   of a text in which more line breaks outside them have a blank before them than a CR. `V2StrayCr` finds them in one
-  pass over the text; comments count as outside, and a quote in a hint starts nothing. The option `keepStrayCr` of
-  `UnwrapOptions` keeps the text as the unit holds it: `new Unwrapper(UnwrapOptions)` takes the options, and
-  `new Unwrapper()` uses the defaults. In `UnwrapOptions.defaults()` the option is false unless the system property
-  `com.github.sftwnd.oracle.unwrap.keepStrayCr` is `true` in any case; the property is read on each call, and
-  `withKeepStrayCr` does not depend on it.
+  pass over the text; comments count as outside, and a quote in a hint starts nothing. The option `strayCr` of the
+  format V2 (`UnwrapOptions.withFormatOption("V2", "strayCr", "keep")`, ADR 0018) keeps the text as the unit holds it:
+  `new Unwrapper(UnwrapOptions)` takes the options, and `new Unwrapper()` uses the defaults, with which the format
+  reads its system property `com.github.sftwnd.oracle.unwrap.v2.strayCr` (`space` or `keep` in any case) for every
+  unit; an option set explicitly wins.
 - The restored text of a unit ends with the `/` line and its line break. If the `/` line of the last unit ends the
   input without a line break, the script assembly drops the line break after the restored `/`, for every format. The
   per-unit results (`unwrap`, `unwrapUnits`) keep it: they have no file around them.
@@ -64,8 +64,8 @@ by blanks.
 - `UnwrapOptions` is a class with a private constructor and `with` methods, not a record: an option added later does
   not change a constructor that callers use.
 - The system property sets the option for an application that creates `Unwrapper` with the defaults, without a change
-  of its code. It is read on each call of `defaults()`, so an application or a test can set it at run time, and an
-  option set explicitly wins.
+  of its code. It is read for every unit, so an application or a test can set it at run time, and an option set
+  explicitly wins.
 
 ## Alternatives
 
@@ -94,22 +94,22 @@ by blanks.
 ## Consequences
 
 - The restored text of a V2 unit mixes them only if the unit holds CRs that are not stray, as the text of WRAP 12.1 and
-  later from a source with CRLF does, or if `keepStrayCr` is set. Among the 8786 V2 files of the corpus, `ords_migrate`
+  later from a source with CRLF does, or if `strayCr=keep` is set. Among the 8786 V2 files of the corpus, `ords_migrate`
   and `upg_oauth` of Oracle 12.2.0.1 hold 3 and 1 stray CRLF, outside literals; 712 of 733 and 822 of 828 of their
   lines end with a blank, so their source had CRLF. By default these 4 CRs become spaces, and the restored scripts of
-  all other files do not change; with `keepStrayCr` all scripts are as the units hold them. Neither form wraps back to
+  all other files do not change; with `strayCr=keep` all scripts are as the units hold them. Neither form wraps back to
   the same bytes as it is: in the restored script the lines stand at other offsets, and WRAP replaces the CR there.
-  With a comment before each CR that moves it to the last byte of a block, the text restored with `keepStrayCr` wraps
+  With a comment before each CR that moves it to the last byte of a block, the text restored with `strayCr=keep` wraps
   back to the same files with WRAP 10.2.0.5 and 11.1.0.6, so these files are the same up to stray CRs; `\r-- c\n` on
   these lines gives the same bytes too.
 - A source with CRLF whose CR stands at the offsets 511 and 1023 keeps these two CRLF in the text with WRAP 10.2.0.1,
   10.2.0.5, 11.1.0.6 and 11.2.0.1, and none with WRAP 10.1.0.3; WRAP 12.1.0.2 and 21.3 keep all of them. With
-  `keepStrayCr` the library restores each of these texts as the unit holds it; by default the CRs that WRAP 10.2 to
+  `strayCr=keep` the library restores each of these texts as the unit holds it; by default the CRs that WRAP 10.2 to
   11.2 kept outside literals become spaces.
 - The synthetic sample `P1020STRAYCR` is wrapped by WRAP 10.2.0.5 from a source with CRLF whose CRs stand at the
   offsets 511, 1023 and 1535: outside a literal, in a string literal and in a q-quoted literal. By default the first
   becomes a space and the other two stay (`P1020STRAYCR.unwrapped`); `P1020STRAYCRKEPT.unwrapped` is the text with
-  `keepStrayCr`, which wraps back to the same file with WRAP 10.2.0.5 and 11.1.0.6 once a comment before each CR moves
+  `strayCr=keep`, which wraps back to the same file with WRAP 10.2.0.5 and 11.1.0.6 once a comment before each CR moves
   it to the end of a block.
 - The references of the synthetic samples are stored with CRLF. For a sample wrapped by WRAP for Linux, a test
   expects the reference with LF (`Samples.expected`): that is the text the round trip of the sample was checked with.
