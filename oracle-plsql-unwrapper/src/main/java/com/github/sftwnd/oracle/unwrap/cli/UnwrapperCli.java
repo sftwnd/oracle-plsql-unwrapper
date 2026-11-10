@@ -3,6 +3,8 @@
 package com.github.sftwnd.oracle.unwrap.cli;
 
 import com.github.sftwnd.oracle.unwrap.Unwrapper;
+import com.github.sftwnd.oracle.unwrap.cli.CommandLine.FormatSetting;
+import com.github.sftwnd.oracle.unwrap.spi.FormatOption;
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapException;
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapOptions;
 
@@ -18,6 +20,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.CodingErrorAction;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Command line of the unwrapper: restores an SQL script from a file or the standard input. The help lists the formats
@@ -56,7 +63,13 @@ public final class UnwrapperCli {
             return WRONG_USAGE;
         }
         try {
-            Unwrapper unwrapper = new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(line.keepStrayCr()));
+            Unwrapper unwrapper = new Unwrapper(options(line));
+            String unknown = unknownFormatOption(line, unwrapper.formatOptions());
+            if (unknown != null) {
+                err.println("Unknown format option " + unknown);
+                err.println("Try --help");
+                return WRONG_USAGE;
+            }
             if (line.help()) {
                 write(help(unwrapper).getBytes(Charset.defaultCharset()), null);
             } else {
@@ -71,6 +84,31 @@ public final class UnwrapperCli {
             err.println(e);
             return FAILURE;
         }
+    }
+
+    private static UnwrapOptions options(CommandLine line) {
+        UnwrapOptions options = UnwrapOptions.defaults();
+        for (FormatSetting setting : line.formatSettings()) {
+            options = options.withFormatOption(setting.format(), setting.name(), setting.value());
+        }
+        return options;
+    }
+
+    /**
+     * A format ignores an option it does not know, so the names are checked here against the options the formats list:
+     * a misspelt name must not pass silently.
+     *
+     * @return the first setting that no format lists, or {@code null}
+     */
+    private static String unknownFormatOption(CommandLine line, Map<String, List<FormatOption>> known) {
+        for (FormatSetting setting : line.formatSettings()) {
+            boolean found = known.getOrDefault(setting.format(), Collections.emptyList()).stream()
+                    .anyMatch(option -> option.name().equals(setting.name()));
+            if (!found) {
+                return setting.format() + '.' + setting.name();
+            }
+        }
+        return null;
     }
 
     private static String help(Unwrapper unwrapper) {
@@ -88,11 +126,35 @@ public final class UnwrapperCli {
                 .append("Options:\n")
                 .append("  --input-encoding <charset>   encoding of the input, ISO-8859-1 by default\n")
                 .append("  --output-encoding <charset>  encoding of the output, the one of the input by default\n")
-                .append("  --keep-stray-cr              keep a stray CR of a V2 text instead of a space\n")
+                .append(unwrapper.formatOptions().isEmpty() ? ""
+                      : "  --format-option <f.n=v>      option <n> of the format <f>, see below; may be repeated\n")
                 .append("  -h, --help                   print this help\n")
+                .append(formatOptions(unwrapper.formatOptions()))
                 .append('\n')
                 .append(COPYRIGHT).append('\n')
                 .toString();
+    }
+
+    /** The options of the formats, each as {@code format.name=values} with its description, in two columns. */
+    private static String formatOptions(Map<String, List<FormatOption>> options) {
+        if (options.isEmpty()) {
+            return "";
+        }
+        StringBuilder help = new StringBuilder("\nOptions of the formats, as --format-option <format>.<name>=<value>:")
+                .append('\n');
+        Map<String, String> rows = new LinkedHashMap<>();
+        options.forEach((format, list) -> list.forEach(option -> rows.put(
+                format + '.' + option.name() + '=' + (option.values().isEmpty() ? "<value>"
+                        : option.values().stream().collect(Collectors.joining("|"))), option.description())));
+        int width = rows.keySet().stream().mapToInt(String::length).max().orElse(0);
+        rows.forEach((key, description) -> {
+            help.append("  ").append(key);
+            for (int i = key.length(); i < width + 2; i++) {
+                help.append(' ');
+            }
+            help.append(description).append('\n');
+        });
+        return help.toString();
     }
 
     private byte[] read(String file) throws IOException {
