@@ -58,9 +58,9 @@ The project has three modules, and each builds a JAR in its `target` directory:
 The executable JAR with all the classes and the distribution, which holds it with the launchers, are here:
 
 ```text
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-all.jar
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-dist.zip
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-dist/unwrapper
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-all.jar
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-dist.zip
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-dist/unwrapper
 ```
 
 ## Usage
@@ -71,7 +71,7 @@ The library is on Maven Central:
 <dependency>
     <groupId>com.github.sftwnd</groupId>
     <artifactId>oracle-plsql-unwrapper</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -156,13 +156,13 @@ unwrapper/bin/unwrapper S.SQL S.SQ
 The build also leaves the JARs of the modules in a directory of `target`. On JDK 9 and later the unwrapper starts from them on the module path, where the formats are found through `provides`:
 
 ```bash
-java --module-path oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.0-modules --module com.github.sftwnd.oracle.unwrap/com.github.sftwnd.oracle.unwrap.cli.UnwrapperCli --help
+java --module-path oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-modules --module com.github.sftwnd.oracle.unwrap/com.github.sftwnd.oracle.unwrap.cli.UnwrapperCli --help
 ```
 
 The executable JAR needs nothing next to it and runs on the class path of any JDK; the distribution has it at its root too:
 
 ```bash
-java -jar oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-all.jar S.SQL S.SQ
+java -jar oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-all.jar S.SQL S.SQ
 ```
 
 ## Modules, OSGi and services
