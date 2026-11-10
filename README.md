@@ -122,6 +122,8 @@ Unwrapper unwrapper = new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(tru
 
 The default of `keepStrayCr` is `false` unless the system property `com.github.sftwnd.oracle.unwrap.keepStrayCr` is `true`: with `-Dcom.github.sftwnd.oracle.unwrap.keepStrayCr=true` every `new Unwrapper()` keeps stray CRs, so an application can switch it without a change of its code. `withKeepStrayCr` sets the option whatever the property says.
 
+A format may have options of its own: `Unwrapper.formatOptions()` lists them, and `UnwrapOptions.withFormatOption(format, name, value)` sets one for one `Unwrapper`, see [ADR 0017](docs/adr/0017-format-options.md). The distribution of this project has none, as V2 has no options of its own.
+
 Other `Unwrapper` operations:
 
 - `unwrap` — unwrap the first wrapped unit;
@@ -147,7 +149,7 @@ The distribution starts the unwrapper from the command line; the script goes fro
 unwrapper/bin/unwrapper S.SQL S.SQ
 ```
 
-`--help` lists the wrapped formats of this distribution, here `V2` only. `--input-encoding` and `--output-encoding` set the encodings, ISO-8859-1 by default, so the text outside the units stays byte for byte; a restored text that does not fit the output encoding is an error, and nothing is written. `--keep-stray-cr` is the option `keepStrayCr`, see [Format V2](#format-v2). The exit code is 0, 1 if the script cannot be restored, 2 if the arguments are wrong.
+`--help` lists the wrapped formats of this distribution, here `V2` only. `--input-encoding` and `--output-encoding` set the encodings, ISO-8859-1 by default, so the text outside the units stays byte for byte; a restored text that does not fit the output encoding is an error, and nothing is written. `--keep-stray-cr` is the option `keepStrayCr`, see [Format V2](#format-v2). `--format-option <format>.<name>=<value>` sets an option of a format; the help lists such options when a format has them. The exit code is 0, 1 if the script cannot be restored, 2 if the arguments are wrong.
 
 `bin/unwrapper` (`bin/unwrapper.cmd` on Windows) runs the executable JAR on the JDK of `JAVA_HOME`, or on `java` from `PATH`, and takes options of the JVM from `JAVA_OPTS`.
 

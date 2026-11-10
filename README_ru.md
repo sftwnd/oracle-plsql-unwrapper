@@ -122,6 +122,8 @@ Unwrapper unwrapper = new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(tru
 
 По умолчанию `keepStrayCr` равен `false`, если системное свойство `com.github.sftwnd.oracle.unwrap.keepStrayCr` не равно `true`: с `-Dcom.github.sftwnd.oracle.unwrap.keepStrayCr=true` каждый `new Unwrapper()` сохраняет случайные CR, поэтому приложение может включить это без изменения своего кода. `withKeepStrayCr` задаёт параметр независимо от свойства.
 
+У формата могут быть собственные параметры: `Unwrapper.formatOptions()` перечисляет их, а `UnwrapOptions.withFormatOption(format, name, value)` задаёт один из них для одного `Unwrapper`, см. [ADR 0017](docs/adr/0017-format-options_ru.md). У дистрибутива этого проекта их нет, так как у V2 собственных параметров нет.
+
 Дополнительные операции `Unwrapper`:
 
 - `unwrap` — распаковать первую wrapped-единицу;
@@ -147,7 +149,7 @@ cmp S.SQ /path/to/U.SQL
 unwrapper/bin/unwrapper S.SQL S.SQ
 ```
 
-`--help` перечисляет wrapped-форматы этого дистрибутива, здесь только `V2`. `--input-encoding` и `--output-encoding` задают кодировки, по умолчанию ISO-8859-1, поэтому текст вне единиц сохраняется байт в байт; восстановленный текст, не помещающийся в кодировку вывода, — ошибка, и ничего не записывается. `--keep-stray-cr` — это параметр `keepStrayCr`, см. [Формат V2](#формат-v2). Код завершения — 0, 1, если скрипт нельзя восстановить, 2, если неверны аргументы.
+`--help` перечисляет wrapped-форматы этого дистрибутива, здесь только `V2`. `--input-encoding` и `--output-encoding` задают кодировки, по умолчанию ISO-8859-1, поэтому текст вне единиц сохраняется байт в байт; восстановленный текст, не помещающийся в кодировку вывода, — ошибка, и ничего не записывается. `--keep-stray-cr` — это параметр `keepStrayCr`, см. [Формат V2](#формат-v2). `--format-option <формат>.<имя>=<значение>` задаёт параметр формата; справка перечисляет такие параметры, если они есть у формата. Код завершения — 0, 1, если скрипт нельзя восстановить, 2, если неверны аргументы.
 
 `bin/unwrapper` (`bin/unwrapper.cmd` в Windows) запускает исполняемый JAR на JDK из `JAVA_HOME` или на `java` из `PATH` и берёт параметры JVM из `JAVA_OPTS`.
 

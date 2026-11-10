@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -62,6 +65,62 @@ class UnwrapOptionsTest {
             assertEquals(UnwrapOptions.defaults().hashCode(), keep.withKeepStrayCr(false).hashCode());
             assertNotEquals(UnwrapOptions.defaults(), keep);
         });
+    }
+
+    @Test
+    void setsOptionsOfFormats() {
+        withProperty(null, () -> {
+            UnwrapOptions options = UnwrapOptions.defaults().withFormatOption("V1", "layout", "canonical");
+
+            assertEquals("canonical", options.formatOption("V1", "layout"));
+            assertNull(options.formatOption("V1", "in"));
+            assertNull(options.formatOption("V2", "layout"));
+            assertNull(UnwrapOptions.defaults().formatOption("V1", "layout"));
+            assertEquals("never", options.withFormatOption("V1", "in", "never").formatOption("V1", "in"));
+            assertEquals("canonical", options.withFormatOption("V1", "in", "never").formatOption("V1", "layout"));
+            assertEquals("source", options.withFormatOption("V1", "layout", "source").formatOption("V1", "layout"));
+            assertEquals("canonical", options.formatOption("V1", "layout"));
+        });
+    }
+
+    @Test
+    void keepsOptionsOfFormatsWhenAnotherValueChanges() {
+        withProperty(null, () -> {
+            UnwrapOptions options = UnwrapOptions.defaults().withFormatOption("V1", "layout", "canonical");
+
+            assertEquals("canonical", options.withKeepStrayCr(true).formatOption("V1", "layout"));
+            assertTrue(options.withFormatOption("V1", "in", "never").keepStrayCr() == options.keepStrayCr());
+        });
+    }
+
+    @Test
+    void comparesOptionsOfFormats() {
+        withProperty(null, () -> {
+            UnwrapOptions one = UnwrapOptions.defaults().withFormatOption("V1", "layout", "canonical");
+            UnwrapOptions same = UnwrapOptions.defaults().withFormatOption("V1", "layout", "canonical");
+
+            assertEquals(one, same);
+            assertEquals(one.hashCode(), same.hashCode());
+            assertNotEquals(one, UnwrapOptions.defaults());
+            assertNotEquals(one, UnwrapOptions.defaults().withFormatOption("V1", "layout", "source"));
+            assertEquals("UnwrapOptions[keepStrayCr=false, {V1.layout=canonical}]", one.toString());
+            assertEquals("UnwrapOptions[keepStrayCr=false]", UnwrapOptions.defaults().toString());
+        });
+    }
+
+    @Test
+    void rejectsIncompleteOptionOfFormat() {
+        UnwrapOptions defaults = UnwrapOptions.defaults();
+
+        assertThrows(NullPointerException.class, () -> defaults.withFormatOption(null, "layout", "x"));
+        assertThrows(NullPointerException.class, () -> defaults.withFormatOption("V1", null, "x"));
+        assertThrows(NullPointerException.class, () -> defaults.withFormatOption("V1", "layout", null));
+        assertThrows(NullPointerException.class, () -> defaults.formatOption(null, "layout"));
+    }
+
+    @Test
+    void noFormatOptionsWithoutTheFormatsThatHaveThem() {
+        assertEquals(Collections.emptyMap(), new Unwrapper().formatOptions());
     }
 
     @Test

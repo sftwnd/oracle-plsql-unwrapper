@@ -2,6 +2,7 @@
 
 package com.github.sftwnd.oracle.unwrap;
 
+import com.github.sftwnd.oracle.unwrap.spi.FormatOption;
 import com.github.sftwnd.oracle.unwrap.spi.FormatUnwrapper;
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapException;
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapOptions;
@@ -68,6 +69,21 @@ public final class Unwrapper {
     public Map<String, String> formats() {
         Map<String, String> result = new LinkedHashMap<>();
         formats.forEach((name, format) -> result.put(name, format.description()));
+        return Collections.unmodifiableMap(result);
+    }
+
+    /**
+     * The options of the formats that have any, by the name of the format, in the order of the names: what
+     * {@link UnwrapOptions#withFormatOption} accepts.
+     */
+    public Map<String, List<FormatOption>> formatOptions() {
+        Map<String, List<FormatOption>> result = new LinkedHashMap<>();
+        formats.forEach((name, format) -> {
+            List<FormatOption> options = format.options();
+            if (!options.isEmpty()) {
+                result.put(name, Collections.unmodifiableList(new ArrayList<>(options)));
+            }
+        });
         return Collections.unmodifiableMap(result);
     }
 
