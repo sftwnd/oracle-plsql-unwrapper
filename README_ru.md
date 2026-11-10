@@ -58,9 +58,9 @@ JAVA_HOME=/path/to/graalvm ./mvnw -Pnative,native-linux clean verify
 Исполняемый JAR со всеми классами и дистрибутив, который содержит его вместе со скриптами запуска, находятся здесь:
 
 ```text
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-all.jar
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-dist.zip
-oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-dist/unwrapper
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-all.jar
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-dist.zip
+oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-dist/unwrapper
 ```
 
 ## Использование
@@ -71,7 +71,7 @@ oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-dist/unwrapp
 <dependency>
     <groupId>com.github.sftwnd</groupId>
     <artifactId>oracle-plsql-unwrapper</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -156,13 +156,13 @@ unwrapper/bin/unwrapper S.SQL S.SQ
 Сборка оставляет JAR модулей ещё и в каталоге `target`. На JDK 9 и новее unwrapper запускается из них на module path, где форматы находятся через `provides`:
 
 ```bash
-java --module-path oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.0-modules --module com.github.sftwnd.oracle.unwrap/com.github.sftwnd.oracle.unwrap.cli.UnwrapperCli --help
+java --module-path oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-modules --module com.github.sftwnd.oracle.unwrap/com.github.sftwnd.oracle.unwrap.cli.UnwrapperCli --help
 ```
 
 Исполняемому JAR ничего рядом не нужно, он работает на classpath любого JDK; он есть и в корне дистрибутива:
 
 ```bash
-java -jar oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-SNAPSHOT-all.jar S.SQL S.SQ
+java -jar oracle-plsql-unwrapper/target/oracle-plsql-unwrapper-1.0.1-all.jar S.SQL S.SQ
 ```
 
 ## Модули, OSGi и сервисы
