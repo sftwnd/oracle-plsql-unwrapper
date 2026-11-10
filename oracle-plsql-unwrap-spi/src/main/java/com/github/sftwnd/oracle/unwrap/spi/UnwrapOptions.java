@@ -10,48 +10,61 @@ import java.util.TreeMap;
 /**
  * Options of the unwrapper; a format takes those it needs in {@link FormatUnwrapper#withOptions}. The object is
  * immutable: each {@code with} method returns options with one value changed, so options can be added later without
- * breaking the code that sets the others.
+ * breaking the code that sets the others. Every option belongs to a format and is set by its name with
+ * {@link #withFormatOption}; what is not set is decided by the format, usually from its system property.
  */
 public final class UnwrapOptions {
 
     /**
-     * System property with the value of {@link #keepStrayCr()} in {@link #defaults()}:
-     * {@code -Dcom.github.sftwnd.oracle.unwrap.keepStrayCr=true}.
+     * System property with the default of the stray CR of a V2 text: {@code true} in any case keeps it, as the option
+     * {@code strayCr=keep} of the format V2 does. The format reads it as an alias of its own property
+     * {@code com.github.sftwnd.oracle.unwrap.v2.strayCr}.
+     *
+     * @deprecated use the property {@code com.github.sftwnd.oracle.unwrap.v2.strayCr} with the value {@code keep};
+     *             the alias is removed in the next major release
      */
+    @Deprecated
     public static final String KEEP_STRAY_CR_PROPERTY = "com.github.sftwnd.oracle.unwrap.keepStrayCr";
 
-    private final boolean keepStrayCr;
+    /** Format and option that {@link #keepStrayCr()} and {@link #withKeepStrayCr} stand for. */
+    private static final String V2_FORMAT = "V2";
+    private static final String STRAY_CR_OPTION = "strayCr";
+    private static final String KEEP = "keep";
+    private static final String SPACE = "space";
 
     /** Options of the formats by {@code format.name}; the formats that do not know a name ignore it. */
     private final Map<String, String> formatOptions;
 
-    private UnwrapOptions(boolean keepStrayCr, Map<String, String> formatOptions) {
-        this.keepStrayCr = keepStrayCr;
+    private UnwrapOptions(Map<String, String> formatOptions) {
         this.formatOptions = formatOptions;
     }
 
-    /**
-     * The defaults: a stray CR of a V2 text becomes a space unless the system property {@value #KEEP_STRAY_CR_PROPERTY}
-     * is {@code true}, in any case. The property is read on each call, so it applies to the unwrappers created after it
-     * is set; options set by a {@code with} method do not depend on it. No option of a format is set.
-     */
+    /** The defaults: no option of a format is set, so each format decides from its system properties. */
     public static UnwrapOptions defaults() {
-        return new UnwrapOptions(Boolean.getBoolean(KEEP_STRAY_CR_PROPERTY), Collections.emptyMap());
+        return new UnwrapOptions(Collections.emptyMap());
     }
 
     /**
-     * Whether a stray CR of a V2 text is kept as the unit holds it. WRAP 10.2 to 11.2 replace the CR of a source with
-     * CRLF with a space, except where it stood in the last byte of a block of 512 bytes of the source file; such a CR
-     * outside string literals and quoted identifiers is stray, and by default it becomes a space (see
-     * {@link #defaults()}).
+     * Whether the option {@code strayCr} of the format V2 is set to {@code keep}: a stray CR of a V2 text is kept as
+     * the unit holds it instead of becoming a space.
+     *
+     * @deprecated use {@code formatOption("V2", "strayCr")}; the method is removed in the next major release
      */
+    @Deprecated
     public boolean keepStrayCr() {
-        return keepStrayCr;
+        String value = formatOption(V2_FORMAT, STRAY_CR_OPTION);
+        return value != null && value.trim().equalsIgnoreCase(KEEP);
     }
 
-    /** These options with {@link #keepStrayCr()} set to {@code keep}. */
+    /**
+     * These options with the option {@code strayCr} of the format V2 set to {@code keep} or {@code space}.
+     *
+     * @deprecated use {@code withFormatOption("V2", "strayCr", "keep")}; the method is removed in the next major
+     *             release
+     */
+    @Deprecated
     public UnwrapOptions withKeepStrayCr(boolean keep) {
-        return keep == keepStrayCr ? this : new UnwrapOptions(keep, formatOptions);
+        return withFormatOption(V2_FORMAT, STRAY_CR_OPTION, keep ? KEEP : SPACE);
     }
 
     /**
@@ -70,9 +83,13 @@ public final class UnwrapOptions {
      */
     public UnwrapOptions withFormatOption(String format, String name, String value) {
         Objects.requireNonNull(value, "value");
+        String key = key(format, name);
+        if (value.equals(formatOptions.get(key))) {
+            return this;
+        }
         Map<String, String> changed = new TreeMap<>(formatOptions);
-        changed.put(key(format, name), value);
-        return new UnwrapOptions(keepStrayCr, Collections.unmodifiableMap(changed));
+        changed.put(key, value);
+        return new UnwrapOptions(Collections.unmodifiableMap(changed));
     }
 
     private static String key(String format, String name) {
@@ -81,18 +98,19 @@ public final class UnwrapOptions {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof UnwrapOptions
-                && ((UnwrapOptions) other).keepStrayCr == keepStrayCr
-                && ((UnwrapOptions) other).formatOptions.equals(formatOptions);
+        return other instanceof UnwrapOptions && ((UnwrapOptions) other).formatOptions.equals(formatOptions);
     }
 
     @Override
     public int hashCode() {
-        return 31 * Boolean.hashCode(keepStrayCr) + formatOptions.hashCode();
+        return formatOptions.hashCode();
     }
 
     @Override
     public String toString() {
-        return "UnwrapOptions[keepStrayCr=" + keepStrayCr + (formatOptions.isEmpty() ? "" : ", " + formatOptions) + "]";
+        StringBuilder text = new StringBuilder("UnwrapOptions[");
+        formatOptions.forEach((key, value) -> text.append(text.length() > 14 ? ", " : "").append(key).append('=')
+                .append(value));
+        return text.append(']').toString();
     }
 }

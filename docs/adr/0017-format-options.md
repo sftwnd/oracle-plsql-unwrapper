@@ -4,11 +4,11 @@
 
 ## Context
 
-`UnwrapOptions` holds the options all formats share (`keepStrayCr`). A format may also have options that no other
-format has: the closed implementation of V1 chooses the layout of the restored text and the parameters whose mode `IN`
-is written. Until now such a setting could be given only as a system property of the process, which the help of the
-command line does not mention: a user learns of it from the documentation, and an application cannot set it for one
-`Unwrapper` only.
+`UnwrapOptions` is the object that carries the options to the formats. A format has options that no other format has:
+the closed implementation of V1 chooses the layout of the restored text and the parameters whose mode `IN` is written,
+V2 decides what becomes of a stray CR of the text (ADR 0007, ADR 0018). Until now such a setting could be given only as
+a system property of the process, which the help of the command line does not mention: a user learns of it from the
+documentation, and an application cannot set it for one `Unwrapper` only.
 
 Requirements:
 

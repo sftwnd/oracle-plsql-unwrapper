@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UnwrapperTest {
 
+    /** The option of the format V2 that keeps a stray CR of the text. */
+    private static final UnwrapOptions KEEP_STRAY_CR = UnwrapOptions.defaults().withFormatOption("V2", "strayCr", "keep");
+
     private final Unwrapper unwrapper = new Unwrapper();
 
     @Test
@@ -232,8 +235,7 @@ class UnwrapperTest {
     void keepsCrlfOfV2TextWrappedFromCrlfWithEitherOption() {
         String wrapped = Samples.read("P1210CRLF.wrapped");
 
-        assertEquals(unwrapper.unwrapScript(wrapped),
-                new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(true)).unwrapScript(wrapped));
+        assertEquals(unwrapper.unwrapScript(wrapped), new Unwrapper(KEEP_STRAY_CR).unwrapScript(wrapped));
     }
 
     /**
@@ -241,8 +243,8 @@ class UnwrapperTest {
      * block of 512 bytes of the source ({@code P1020STRAYCR}): a synthetic script with CRLF whose CRs stand at the
      * offsets 511, 1023 and 1535, outside a literal, in a string literal and in a q-quoted literal, wrapped by WRAP
      * 10.2.0.5. By default the stray CR outside the literals becomes a space and the CRs of the literals stay; with
-     * {@code keepStrayCr} the text is restored as the unit holds it. The references are stored as they are. The text
-     * restored with {@code keepStrayCr} wraps back to the same file with WRAP 10.2.0.5 and 11.1.0.6 once a comment
+     * {@code strayCr=keep} the text is restored as the unit holds it. The references are stored as they are. The text
+     * restored with {@code strayCr=keep} wraps back to the same file with WRAP 10.2.0.5 and 11.1.0.6 once a comment
      * before each CR moves it to the end of a block again.
      */
     @Test
@@ -250,8 +252,7 @@ class UnwrapperTest {
         String wrapped = Samples.read("P1020STRAYCR.wrapped");
 
         assertEquals(Samples.read("P1020STRAYCR.unwrapped"), unwrapper.unwrapScript(wrapped));
-        assertEquals(Samples.read("P1020STRAYCRKEPT.unwrapped"),
-                new Unwrapper(UnwrapOptions.defaults().withKeepStrayCr(true)).unwrapScript(wrapped));
+        assertEquals(Samples.read("P1020STRAYCRKEPT.unwrapped"), new Unwrapper(KEEP_STRAY_CR).unwrapScript(wrapped));
     }
 
     /**

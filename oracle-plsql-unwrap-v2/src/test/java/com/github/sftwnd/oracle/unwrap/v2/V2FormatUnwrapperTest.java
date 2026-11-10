@@ -2,7 +2,9 @@
 
 package com.github.sftwnd.oracle.unwrap.v2;
 
+import com.github.sftwnd.oracle.unwrap.spi.FormatUnwrapper;
 import com.github.sftwnd.oracle.unwrap.spi.UnwrapException;
+import com.github.sftwnd.oracle.unwrap.spi.UnwrapOptions;
 import com.github.sftwnd.oracle.unwrap.spi.WrappedUnit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -400,6 +403,46 @@ class V2FormatUnwrapperTest {
 
         assertEquals("create procedure p IS\r\n  V VARCHAR2(9) := 'a\r\nb\rc';\nBEGIN NULL; END;\n/\n",
                 format.read(text, 0).unwrap());
+    }
+
+    /**
+     * A stray CR of the text, as WRAP 10.2 to 11.2 leave it in the last byte of a block of the source, becomes a space
+     * by default and stays with the option {@code strayCr=keep}; the text of a unit with more CRs than blanks before
+     * its line breaks is not touched.
+     */
+    @Test
+    void replacesStrayCrUnlessTheOptionKeepsIt() {
+        String body = "PROCEDURE p IS \n  A NUMBER; \n  B NUMBER;\r\n  C NUMBER; \nBEGIN NULL; END;";
+        String text = V2Units.unit("create procedure p", 1, "7", body, StandardCharsets.US_ASCII);
+        String restored = "create procedure p IS \n  A NUMBER; \n  B NUMBER;%s\n  C NUMBER; \nBEGIN NULL; END;\n/\n";
+
+        assertEquals(String.format(restored, " "), format.read(text, 0).unwrap());
+        assertEquals(String.format(restored, " "), withStrayCr("space").read(text, 0).unwrap());
+        assertEquals(String.format(restored, "\r"), withStrayCr("keep").read(text, 0).unwrap());
+        assertEquals(String.format(restored, "\r"), withStrayCr(" KEEP ").read(text, 0).unwrap());
+    }
+
+    @Test
+    void listsTheOptionStrayCr() {
+        assertEquals(1, format.options().size());
+        assertEquals("strayCr", format.options().get(0).name());
+        assertEquals(Arrays.asList("space", "keep"), format.options().get(0).values());
+    }
+
+    @Test
+    void rejectsWrongValueOfTheOption() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> withStrayCr("yes"));
+        assertEquals("Option V2.strayCr must be space or keep, not yes", e.getMessage());
+    }
+
+    @Test
+    void ignoresOptionsOfOtherFormats() {
+        assertEquals(V2FormatUnwrapper.class,
+                format.withOptions(UnwrapOptions.defaults().withFormatOption("V1", "strayCr", "yes")).getClass());
+    }
+
+    private static FormatUnwrapper withStrayCr(String value) {
+        return new V2FormatUnwrapper().withOptions(UnwrapOptions.defaults().withFormatOption("V2", "strayCr", value));
     }
 
     @Test

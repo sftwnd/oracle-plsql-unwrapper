@@ -121,8 +121,8 @@ to 23.26.1 write the same layout and differ in the details above; the behavior o
 - The restored statement is the header as WRAP copied it, with the blanks before it on its line, the text of the unit
   after its kind and name, and the `/`. If the name in the text runs on into the next word, a space separates them.
   A header without `CREATE` gets `CREATE OR REPLACE `. LF in the text becomes the line break of the header line, and a
-  CRLF stays in a unit with LF (ADR 0007); a lone CR stays. A stray CR becomes a space unless `keepStrayCr` is set
-  (ADR 0007).
+  CRLF stays in a unit with LF (ADR 0007); a lone CR stays. A stray CR becomes a space unless the option `strayCr` of the
+  format is `keep` (ADR 0007).
 - If the last clause is followed by a character before ` wrapped ` and the text after the name starts with at least as
   many blanks as the header takes up to that character, the character goes after the clauses and these blanks are left
   out; NUL stands for a line break. The header is counted from the end of the name, without the comments before the

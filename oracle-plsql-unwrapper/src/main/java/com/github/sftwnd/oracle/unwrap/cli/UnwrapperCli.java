@@ -87,7 +87,7 @@ public final class UnwrapperCli {
     }
 
     private static UnwrapOptions options(CommandLine line) {
-        UnwrapOptions options = UnwrapOptions.defaults().withKeepStrayCr(line.keepStrayCr());
+        UnwrapOptions options = UnwrapOptions.defaults();
         for (FormatSetting setting : line.formatSettings()) {
             options = options.withFormatOption(setting.format(), setting.name(), setting.value());
         }
@@ -126,7 +126,6 @@ public final class UnwrapperCli {
                 .append("Options:\n")
                 .append("  --input-encoding <charset>   encoding of the input, ISO-8859-1 by default\n")
                 .append("  --output-encoding <charset>  encoding of the output, the one of the input by default\n")
-                .append("  --keep-stray-cr              keep a stray CR of a V2 text instead of a space\n")
                 .append(unwrapper.formatOptions().isEmpty() ? ""
                       : "  --format-option <f.n=v>      option <n> of the format <f>, see below; may be repeated\n")
                 .append("  -h, --help                   print this help\n")

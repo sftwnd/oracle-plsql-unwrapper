@@ -57,8 +57,6 @@ final class V2UnitParser {
     /** Most hexadecimal digits of a value: seven always fit an {@code int}. */
     private static final int MAX_HEX_DIGITS = 7;
 
-    private final boolean keepStrayCr;
-
     private static Set<String> setOf(String... values) {
         return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(values)));
     }
@@ -80,11 +78,6 @@ final class V2UnitParser {
             start++;
         }
         return stripped.substring(start);
-    }
-
-    /** @param keepStrayCr whether the units keep a stray CR of their text ({@link V2StrayCr}) */
-    V2UnitParser(boolean keepStrayCr) {
-        this.keepStrayCr = keepStrayCr;
     }
 
     /**
@@ -111,9 +104,10 @@ final class V2UnitParser {
     /**
      * Reads the unit whose header {@link #find} has found at {@code start}, up to the end of its Base64 lines.
      *
+     * @param keepStrayCr whether the unit keeps a stray CR of its text ({@link V2StrayCr})
      * @throws UnwrapException if the unit does not match the V2 format
      */
-    V2Unit read(String text, int start) {
+    V2Unit read(String text, int start, boolean keepStrayCr) {
         Header header = header(text, start);
         if (header == null) {
             throw new UnwrapException("Unknown V2 unit header (line " + SourceLines.lineNumber(text, start) + ")");

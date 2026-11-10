@@ -62,7 +62,7 @@ Format contract:
 
 `Unwrapper` finds the formats with `ServiceLoader`, polls all of them, takes the nearest header, parses the unit and
 continues the search after its end. An option of one format reaches it through `FormatUnwrapper.withOptions`
-(`keepStrayCr` of `V2FormatUnwrapper`, ADR 0007).
+(`strayCr` of `V2FormatUnwrapper`, ADR 0007 and ADR 0017).
 Script assembly (`ScriptUnwrapper`) uses only the boundaries and text of units, so it is common to all formats: text
 outside units is copied unchanged, and the rest of a unit up to and including the `/` line is discarded.
 
