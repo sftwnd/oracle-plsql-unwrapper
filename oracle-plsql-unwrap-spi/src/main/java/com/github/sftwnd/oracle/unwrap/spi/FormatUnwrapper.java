@@ -2,6 +2,9 @@
 
 package com.github.sftwnd.oracle.unwrap.spi;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Implementation of one wrapped format: finds units in the text and parses them.
  * <p>
@@ -19,9 +22,18 @@ public interface FormatUnwrapper {
     String description();
 
     /**
+     * The options of this format that {@link #withOptions} takes from {@link UnwrapOptions#formatOption}; the help of
+     * the command line lists them. A format that has none returns an empty list.
+     */
+    default List<FormatOption> options() {
+        return Collections.emptyList();
+    }
+
+    /**
      * This format with the given options; a format that has no options returns itself.
      *
      * @return the implementation to use, this one or a new one
+     * @throws IllegalStateException if the value of an option of this format is not accepted
      */
     default FormatUnwrapper withOptions(UnwrapOptions options) {
         return this;

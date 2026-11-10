@@ -48,6 +48,41 @@ class UnwrapperCliTest {
         assertFalse(output().contains("V1"), output());
     }
 
+    /** V2 has no options of its own, so the help neither lists them nor mentions the option. */
+    @Test
+    void helpHasNoFormatOptionsWithoutThem() {
+        assertEquals(0, run("--help"));
+
+        assertFalse(output().contains("--format-option"), output());
+    }
+
+    @Test
+    void rejectsOptionOfFormatThatHasNone() {
+        assertEquals(2, run("--format-option", "V2.layout=canonical"));
+
+        assertEquals("Unknown format option V2.layout\nTry --help\n", errors());
+    }
+
+    @Test
+    void rejectsOptionOfAbsentFormat() {
+        assertEquals(2, run("--format-option", "V1.layout=canonical", "--help"));
+
+        assertEquals("Unknown format option V1.layout\nTry --help\n", errors());
+        assertEquals("", output());
+    }
+
+    @Test
+    void rejectsMalformedFormatOption() {
+        assertEquals(2, run("--format-option", "layout"));
+        assertEquals("Option --format-option needs <format>.<name>=<value>, not layout\nTry --help\n", errors());
+    }
+
+    @Test
+    void rejectsFormatOptionWithoutArgument() {
+        assertEquals(2, run("--format-option"));
+        assertEquals("Option --format-option needs <format>.<name>=<value>\nTry --help\n", errors());
+    }
+
     @Test
     void helpEndsWithTheCopyright() {
         assertEquals(0, run("--help"));
